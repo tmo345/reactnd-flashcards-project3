@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
+import NewDeck from './components/NewDeck'
 import { Constants } from 'expo';
 import { TabNavigator } from 'react-navigation';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -26,13 +27,30 @@ const Tabs = TabNavigator(
         ),
       },
     },
+    NewDeck: {
+      screen: NewDeck,
+      navigationOptions: {
+        tabBarLabel: 'New Deck',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons
+            name="ios-add"
+            size={30}
+            color={tintColor}
+          />
+        ),
+      },
+
+    }
   },
   {
     tabBarOptions: {
-      activeTintColor: '#222',
+      activeTintColor: '#fff',
+      inactiveTintColor: Platform.OS === 'ios' ? '#222' : '#000',
+      inactiveBackgroundColor: '#fff',
+      activeBackgroundColor: '#222',
       style: {
         height: 56,
-        backgroundColor: '#fff',
+        backgroundColor: 'gray'
       },
     },
   },
