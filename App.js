@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
-import NewDeck from './components/NewDeck'
+import NewDeck from './components/NewDeck';
+import IndividualDeck from './components/IndividualDeck';
 import { Constants } from 'expo';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
@@ -32,36 +33,49 @@ const Tabs = TabNavigator(
       navigationOptions: {
         tabBarLabel: 'New Deck',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons
-            name="ios-add"
-            size={30}
-            color={tintColor}
-          />
+          <Ionicons name="ios-add" size={30} color={tintColor} />
         ),
       },
-
-    }
+    },
   },
   {
+    navigationOptions: {
+      header: null,
+    },
     tabBarOptions: {
       activeTintColor: '#fff',
       inactiveTintColor: Platform.OS === 'ios' ? '#222' : '#000',
-      inactiveBackgroundColor: '#fff',
-      activeBackgroundColor: '#222',
+      inactiveBackgroundColor: '#ddd',
+      activeBackgroundColor: 'gray',
       style: {
         height: 56,
-        backgroundColor: 'gray'
+        backgroundColor: 'gray',
       },
     },
   },
 );
+
+const StackNav = StackNavigator({
+  Decks: {
+    screen: Tabs,
+  },
+  Deck: {
+    screen: IndividualDeck,
+    navigationOptions: {
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: 'gray',
+      },
+    },
+  },
+});
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <FlashCardsStatusBar backgroundColor="#222" barStyle="light-content" />
-        <Tabs />
+        <StackNav />
       </View>
     );
   }
@@ -70,5 +84,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
 });
