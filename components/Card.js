@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { changeAnswerStatus } from '../actions';
 
-export default class Card extends Component {
+class Card extends Component {
   static navigationOptions = {};
 
-  state = {
-    questionSideUp: false,
-    correct: 'correct',
-  };
+  //state = {
+  //questionSideUp: false,
+  //correct: 'correct',
+  //};
   render() {
-    const { questionSideUp } = this.state;
-    const { question, answer } = this.props.card;
+    //const { questionSideUp } = this.state;
+    const { question, answer, onQuestionSide, deckId, id } = this.props.card;
     return (
       <View>
         <Button
@@ -19,24 +21,36 @@ export default class Card extends Component {
         />
         <View>
           <Text style={styles.cardText}>
-            {questionSideUp ? question : answer}
+            {onQuestionSide ? question : answer}
           </Text>
           <Button
-            title={questionSideUp ? 'Answer' : 'Question'}
-            onPress={() =>
-              this.setState({
-                questionSideUp: !this.state.questionSideUp,
-              })}
+            title={onQuestionSide ? 'Answer' : 'Question'}
+            onPress={() => {}}
+            //this.setState({
+            //questionSideUp: !this.state.questionSideUp,
+            //})
           />
         </View>
         <View>
-          <Button title="Correct" onPress={() => {}} />
+          <Button
+            title="Correct"
+            onPress={() => this.props.changeAnswerStatus('correct', deckId, id)}
+          />
           <Button title="Incorrect" onPress={() => {}} />
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({
+  changeAnswerStatus: (status, deckId, cardId) =>
+    dispatch(changeAnswerStatus(status, deckId, cardId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
+
 const styles = StyleSheet.create({
   cardText: {
     textAlign: 'center',
