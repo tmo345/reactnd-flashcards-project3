@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 import AddCard from './AddCard';
+import { connect } from 'react-redux';
 
-export default class IndividualDeck extends Component {
+class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.name,
     };
   };
   render() {
-    const { name, deck } = this.props.navigation.state.params;
+    console.log(this.props);
+    const { deck } = this.props.navigation.state.params;
+    const cardsInDeck = Object.values(this.props.cards[deck.id]);
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.deckName}>{name}</Text>
-          <Text style={styles.numberOfCards}>{deck.length} cards</Text>
+          <Text style={styles.deckName}>{deck.name}</Text>
+          <Text style={styles.numberOfCards}>{cardsInDeck.length} cards</Text>
         </View>
         <View>
           <View style={styles.buttonContainer}>
@@ -35,6 +38,12 @@ export default class IndividualDeck extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ cards }) => ({
+  cards,
+});
+
+export default connect(mapStateToProps)(IndividualDeck);
 
 const styles = StyleSheet.create({
   container: {
