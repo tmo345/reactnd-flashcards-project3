@@ -11,6 +11,7 @@ import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
+import devToolsEnhancer from 'remote-redux-devtools';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -96,7 +97,9 @@ const StackNav = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider
+        store={createStore(reducer, devToolsEnhancer({ realtime: true }))}
+      >
         <View style={styles.container}>
           <FlashCardsStatusBar
             backgroundColor="#222"
