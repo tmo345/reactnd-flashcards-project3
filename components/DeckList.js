@@ -11,18 +11,23 @@ import {
 class DeckList extends Component {
   render() {
     const deckNames = Object.keys(this.props.decks);
+    const decks = this.props.decks;
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.deckList}>
-          {deckNames.map(deck => {
+          {deckNames.map((name, index) => {
             return (
               <TouchableOpacity
+                key={index}
                 onPress={() =>
-                  this.props.navigation.navigate('Deck', { name: deck })}
+                  this.props.navigation.navigate('Deck', {
+                    name,
+                    deck: decks[name],
+                  })}
               >
                 <View style={styles.deck}>
-                  <Text>{deck}</Text>
-                  <Text>{this.props.decks[deck].length} cards</Text>
+                  <Text>{name}</Text>
+                  <Text>{decks[name].length} cards</Text>
                 </View>
               </TouchableOpacity>
             );
