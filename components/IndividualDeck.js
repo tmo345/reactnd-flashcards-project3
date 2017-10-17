@@ -24,7 +24,10 @@ export default class IndividualDeck extends Component {
             />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Start Quiz" onPress={() => {}} />
+            <Button
+              title="Start Quiz"
+              onPress={() => this.props.navigation.navigate('Quiz')}
+            />
           </View>
         </View>
       </View>
