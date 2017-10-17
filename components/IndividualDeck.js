@@ -30,7 +30,8 @@ class IndividualDeck extends Component {
           <View style={styles.buttonContainer}>
             <Button
               title="Start Quiz"
-              onPress={() => this.props.navigation.navigate('Quiz', { deck })}
+              onPress={() =>
+                this.props.navigation.navigate('Quiz', { deck, cardsInDeck })}
             />
           </View>
         </View>

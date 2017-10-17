@@ -12,9 +12,8 @@ import Card from './Card';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
 
-const createCardStackDrawer = deck => {
-  const deckArray = Object.values(deck);
-  const navConfig = deckArray.reduce((config, card, index) => {
+const createCardStackDrawer = cardsInDeck => {
+  const navConfig = cardsInDeck.reduce((config, card, index) => {
     config[`Card${index + 1}`] = {
       screen: props => <Card {...props} card={card} />,
     };
@@ -23,7 +22,7 @@ const createCardStackDrawer = deck => {
   return DrawerNavigator(navConfig, {
     contentComponent: props => (
       <ScrollView>
-        <QuizCardDrawer activeBackgroundColor="red" {...props} deck={deck} />
+        <QuizCardDrawer {...props} deck={cardsInDeck} />
       </ScrollView>
     ),
   });
@@ -31,7 +30,9 @@ const createCardStackDrawer = deck => {
 
 export default class Quiz extends Component {
   render() {
-    const Nav = createCardStackDrawer(this.props.navigation.state.params.deck);
+    const Nav = createCardStackDrawer(
+      this.props.navigation.state.params.cardsInDeck,
+    );
     return <Nav />;
   }
 }
