@@ -10,24 +10,26 @@ import {
 
 class DeckList extends Component {
   render() {
-    const deckNames = Object.keys(this.props.decks);
-    const decks = this.props.decks;
+    const { decks, cards } = this.props;
+    const deckIds = Object.keys(decks);
+
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.deckList}>
-          {deckNames.map((name, index) => {
+          {deckIds.map((deckId, index) => {
+            const deckName = decks[deckId]['name'];
             return (
               <TouchableOpacity
                 key={index}
                 onPress={() =>
                   this.props.navigation.navigate('Deck', {
-                    name,
-                    deck: decks[name],
+                    name: deckName,
+                    deck: decks[deckId],
                   })}
               >
                 <View style={styles.deck}>
-                  <Text>{name}</Text>
-                  <Text>{decks[name].length} cards</Text>
+                  <Text>{deckName}</Text>
+                  <Text>{Object.keys(cards[deckId]).length} cards</Text>
                 </View>
               </TouchableOpacity>
             );
@@ -38,8 +40,9 @@ class DeckList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  decks: state,
+const mapStateToProps = ({ decks, cards }) => ({
+  decks,
+  cards,
 });
 
 export default connect(mapStateToProps)(DeckList);
