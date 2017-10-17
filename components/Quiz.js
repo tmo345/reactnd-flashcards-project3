@@ -12,11 +12,6 @@ import Card from './Card';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
 
-const dummyCardData = {
-  question: 'Does React Native work with Android?',
-  answer: 'Yes',
-};
-
 const createCardStackDrawer = deck => {
   const navConfig = deck.reduce((config, card, index) => {
     config[`Card${index + 1}`] = {
@@ -34,106 +29,9 @@ const createCardStackDrawer = deck => {
 };
 
 export default class Quiz extends Component {
-  state = {
-    deck: [
-      {
-        question: 'Does React Native work with Android?',
-        answer: 'Yes',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-      {
-        question: 'What is the meaning of life?',
-        answer: '42',
-        correct: null,
-      },
-    ],
-  };
-
   render() {
-    const { deck } = this.state;
-    const Nav = createCardStackDrawer(deck);
+    const Nav = createCardStackDrawer(this.props.navigation.state.params.deck);
     return <Nav />;
-    //return createCardStackDrawer(deck);
   }
 }
 
