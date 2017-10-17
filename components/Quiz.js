@@ -13,7 +13,8 @@ import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
 
 const createCardStackDrawer = deck => {
-  const navConfig = deck.reduce((config, card, index) => {
+  const deckArray = Object.values(deck);
+  const navConfig = deckArray.reduce((config, card, index) => {
     config[`Card${index + 1}`] = {
       screen: props => <Card {...props} card={card} />,
     };

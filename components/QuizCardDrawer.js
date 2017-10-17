@@ -32,9 +32,10 @@ export default class QuizCardDrawer extends Component {
     return <Foundation name={iconName} color={color} size={15} />;
   };
   render() {
+    const cardArray = Object.values(this.props.deck);
     return (
       <ScrollView>
-        {this.props.deck.map((card, index) => {
+        {cardArray.map((card, index) => {
           const cardName = `Card${index + 1}`;
           return (
             <View
