@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, Button } from 'react-native';
+import AddCard from './AddCard';
 
 export default class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -16,7 +17,11 @@ export default class IndividualDeck extends Component {
         </View>
         <View>
           <View style={styles.buttonContainer}>
-            <Button title="Add Card" onPress={() => {}} />
+            <Button
+              title="Add Card"
+              onPress={() =>
+                this.props.navigation.navigate('AddCard', { name: 'Add Card' })}
+            />
           </View>
           <View style={styles.buttonContainer}>
             <Button title="Start Quiz" onPress={() => {}} />

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import IndividualDeck from './components/IndividualDeck';
+import AddCard from './components/AddCard';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
@@ -61,6 +62,15 @@ const StackNav = StackNavigator({
   },
   Deck: {
     screen: IndividualDeck,
+    navigationOptions: {
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: 'gray',
+      },
+    },
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: '#fff',
       headerStyle: {
