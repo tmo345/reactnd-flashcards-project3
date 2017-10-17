@@ -9,11 +9,12 @@ export default class IndividualDeck extends Component {
     };
   };
   render() {
+    const { name, deck } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.deckName}>udacicards</Text>
-          <Text style={styles.numberOfCards}>{3} cards</Text>
+          <Text style={styles.deckName}>{name}</Text>
+          <Text style={styles.numberOfCards}>{deck.length} cards</Text>
         </View>
         <View>
           <View style={styles.buttonContainer}>
@@ -26,7 +27,7 @@ export default class IndividualDeck extends Component {
           <View style={styles.buttonContainer}>
             <Button
               title="Start Quiz"
-              onPress={() => this.props.navigation.navigate('Quiz')}
+              onPress={() => this.props.navigation.navigate('Quiz', { deck })}
             />
           </View>
         </View>
