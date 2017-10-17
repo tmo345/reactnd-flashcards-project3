@@ -7,27 +7,18 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+import Card from './Card';
+
+const dummyCardData = {
+  question: 'Does React Native work with Android?',
+  answer: 'Yes',
+};
 
 export default class Quiz extends Component {
-  state = {
-    questionSideUp: false,
-  };
   render() {
-    const { questionSideUp } = this.state;
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.cardText}>
-            {questionSideUp ? 'Does React Native work with Android?' : 'Yes'}
-          </Text>
-          <Button
-            title={questionSideUp ? 'Answer' : 'Question'}
-            onPress={() =>
-              this.setState({
-                questionSideUp: !this.state.questionSideUp,
-              })}
-          />
-        </View>
+        <Card card={dummyCardData} />
         <View>
           <Button title="Correct" onPress={() => {}} />
           <Button title="Incorrect" onPress={() => {}} />
@@ -41,8 +32,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
-  },
-  cardText: {
-    textAlign: 'center',
   },
 });
