@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -7,43 +8,36 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default class DeckList extends Component {
+class DeckList extends Component {
   render() {
+    const deckNames = Object.keys(this.props.decks);
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.deckList}>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Deck', { name: 'udacicards' })}
-          >
-            <View style={styles.deck}>
-              <Text>udacicards</Text>
-              <Text>{3} cards</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Deck', { name: 'udacicards' })}
-          >
-            <View style={styles.deck}>
-              <Text>udacicards</Text>
-              <Text>{3} cards</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Deck', { name: 'udacicards' })}
-          >
-            <View style={styles.deck}>
-              <Text>udacicards</Text>
-              <Text>{3} cards</Text>
-            </View>
-          </TouchableOpacity>
+          {deckNames.map(deck => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate('Deck', { name: deck })}
+              >
+                <View style={styles.deck}>
+                  <Text>{deck}</Text>
+                  <Text>{this.props.decks[deck].length} cards</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  decks: state,
+});
+
+export default connect(mapStateToProps)(DeckList);
 
 const styles = StyleSheet.create({
   deckList: {

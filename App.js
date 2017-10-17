@@ -8,6 +8,9 @@ import Quiz from './components/Quiz';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -93,10 +96,15 @@ const StackNav = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <FlashCardsStatusBar backgroundColor="#222" barStyle="light-content" />
-        <StackNav />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={styles.container}>
+          <FlashCardsStatusBar
+            backgroundColor="#222"
+            barStyle="light-content"
+          />
+          <StackNav />
+        </View>
+      </Provider>
     );
   }
 }
