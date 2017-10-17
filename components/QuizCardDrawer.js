@@ -40,14 +40,16 @@ export default class QuizCardDrawer extends Component {
           return (
             <View
               key={index}
-              style={{
-                flex: 1,
-                backgroundColor:
-                  cardName === this.state.activeCard ? 'gray' : 'white',
-              }}
+              style={[
+                styles.drawerItem,
+                {
+                  backgroundColor:
+                    cardName === this.state.activeCard ? 'gray' : 'white',
+                },
+              ]}
             >
-              <Text
-                style={{ padding: 20 }}
+              <TouchableOpacity
+                style={{ flex: 1 }}
                 onPress={() => {
                   const navigationAction = NavigationActions.navigate({
                     routeName: `Card${index + 1}`,
@@ -59,9 +61,9 @@ export default class QuizCardDrawer extends Component {
                   this.setState({ activeCard: cardName });
                 }}
               >
-                Card{index + 1}
-                {this.renderIcon('incorrect')}
-              </Text>
+                <Text style={styles.drawerItemText}>Card-{index + 1}</Text>
+              </TouchableOpacity>
+              <View>{this.renderIcon(card.answerStatus)}</View>
             </View>
           );
         })}
@@ -70,8 +72,13 @@ export default class QuizCardDrawer extends Component {
   }
 }
 
-//const styles = StyleSheet.create({
-//drawerItem: {
-//backgroundColor:
-//}
-//})
+const styles = StyleSheet.create({
+  drawerItem: {
+    flexDirection: 'row',
+    flex: 1,
+    padding: 20,
+  },
+  drawerItemText: {
+    marginRight: 20,
+  },
+});
