@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 
 const initialDeckState = {
   deckId1: {
-    name: 'udacicards',
+    name: 'Udacicards',
     id: 'deckId1',
   },
   //deckId2: {
@@ -28,6 +28,14 @@ const initialCardState = {
       question: 'What is the meaning of life?',
       answer: '42',
       answerStatus: 'correct',
+      onQuestionSide: true,
+    },
+    {
+      deckId: 'deckId1',
+      id: 'id3',
+      question: 'What is 2 + 2?',
+      answer: '4',
+      answerStatus: 'incorrect',
       onQuestionSide: true,
     },
     //deckId2: {
