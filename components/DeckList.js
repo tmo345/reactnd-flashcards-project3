@@ -23,8 +23,7 @@ class DeckList extends Component {
                 key={index}
                 onPress={() =>
                   this.props.navigation.navigate('Deck', {
-                    name: deckName,
-                    deck: decks[deckId],
+                    deckId,
                   })}
               >
                 <View style={styles.deck}>

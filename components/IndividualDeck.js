@@ -10,8 +10,7 @@ class IndividualDeck extends Component {
     };
   };
   render() {
-    const { deck } = this.props.navigation.state.params;
-    const cardsInDeck = Object.values(this.props.cards[deck.id]);
+    const { deck, cardsInDeck } = this.props;
     return (
       <View style={styles.container}>
         <View>
@@ -30,7 +29,7 @@ class IndividualDeck extends Component {
             <Button
               title="Start Quiz"
               onPress={() =>
-                this.props.navigation.navigate('Quiz', { deck, cardsInDeck })}
+                this.props.navigation.navigate('Quiz', { deckId: deck.id })}
             />
           </View>
         </View>
@@ -39,9 +38,13 @@ class IndividualDeck extends Component {
   }
 }
 
-const mapStateToProps = ({ cards }) => ({
-  cards,
-});
+const mapStateToProps = ({ decks, cards }, { navigation }) => {
+  const { deckId } = navigation.state.params;
+  return {
+    deck: decks[deckId],
+    cardsInDeck: cards[deckId],
+  };
+};
 
 export default connect(mapStateToProps)(IndividualDeck);
 

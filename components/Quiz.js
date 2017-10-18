@@ -11,6 +11,7 @@ import {
 import Card from './Card';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
+import { connect } from 'react-redux';
 
 const createCardStackDrawer = (cardsInDeck, deck) => {
   const navConfig = cardsInDeck.reduce((config, card, index) => {
@@ -31,16 +32,23 @@ const createCardStackDrawer = (cardsInDeck, deck) => {
   });
 };
 
-export default class Quiz extends Component {
+class Quiz extends Component {
   render() {
-    const Nav = createCardStackDrawer(
-      this.props.navigation.state.params.cardsInDeck,
-      this.props.navigation.state.params.deck,
-      this.props.navigation.state.params.cardPosition,
-    );
+    const { deck, cardsInDeck } = this.props;
+    const Nav = createCardStackDrawer(cardsInDeck, deck);
     return <Nav />;
   }
 }
+
+const mapStateToProps = ({ decks, cards }, { navigation }) => {
+  const { deckId } = navigation.state.params;
+  return {
+    deck: decks[deckId],
+    cardsInDeck: cards[deckId],
+  };
+};
+
+export default connect(mapStateToProps)(Quiz);
 
 const styles = StyleSheet.create({
   container: {
