@@ -24,11 +24,12 @@ class DeckList extends Component {
                 onPress={() =>
                   this.props.navigation.navigate('Deck', {
                     deckId,
+                    name: deckName,
                   })}
               >
                 <View style={styles.deck}>
                   <Text>{deckName}</Text>
-                  <Text>{Object.keys(cards[deckId]).length} cards</Text>
+                  <Text>{cards[deckId].length} cards</Text>
                 </View>
               </TouchableOpacity>
             );

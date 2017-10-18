@@ -29,7 +29,10 @@ class IndividualDeck extends Component {
             <Button
               title="Start Quiz"
               onPress={() =>
-                this.props.navigation.navigate('Quiz', { deckId: deck.id })}
+                this.props.navigation.navigate('Quiz', {
+                  deckId: deck.id,
+                  name: deck.name,
+                })}
             />
           </View>
         </View>

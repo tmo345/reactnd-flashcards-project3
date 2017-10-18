@@ -33,6 +33,11 @@ const createCardStackDrawer = (cardsInDeck, deck) => {
 };
 
 class Quiz extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.state.params.name,
+    };
+  };
   render() {
     const { deck, cardsInDeck } = this.props;
     const Nav = createCardStackDrawer(cardsInDeck, deck);
