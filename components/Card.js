@@ -71,21 +71,18 @@ class Card extends Component {
 
 const mapStateToProps = ({ quiz, cards }, { deckId }) => {
   console.log(
-    cards[deckId].slice(quiz.currentQuestion - 1, quiz.currentQuestion),
+    cards[deckId].slice(quiz.currentQuestion - 1, quiz.currentQuestion)
   );
   return {
     currentQuestion: quiz.currentQuestion,
-    card: cards[deckId].slice(
-      quiz.currentQuestion - 1,
-      quiz.currentQuestion,
-    )[0],
+    card: cards[deckId].slice(quiz.currentQuestion - 1, quiz.currentQuestion)[0]
   };
   //card: cards[deckId][cardId],
 };
 const mapDispatchToProps = dispatch => ({
   changeAnswerStatus: (status, deckId, cardId) =>
     dispatch(changeAnswerStatus(status, deckId, cardId)),
-  setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
+  setCurrentQuestion: position => dispatch(setCurrentQuestion(position))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
@@ -94,11 +91,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   cardHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   cardContainer: {
     borderWidth: 1,
@@ -107,7 +104,7 @@ const styles = StyleSheet.create({
     shadowColor: '#ccc',
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 3
     },
     borderColor: '#ccc',
     padding: 20,
@@ -115,11 +112,11 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
     margin: 10,
     marginRight: 20,
-    marginLeft: 20,
+    marginLeft: 20
   },
   cardNav: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
     //paddingTop: 20,
     //paddingBottom: 20,
   },
@@ -127,12 +124,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#222',
+    borderColor: '#222'
   },
   cardNavText: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   cardText: {
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
