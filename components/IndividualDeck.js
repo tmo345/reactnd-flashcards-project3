@@ -10,7 +10,6 @@ class IndividualDeck extends Component {
     };
   };
   render() {
-    console.log(this.props);
     const { deck } = this.props.navigation.state.params;
     const cardsInDeck = Object.values(this.props.cards[deck.id]);
     return (

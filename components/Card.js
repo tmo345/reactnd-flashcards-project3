@@ -12,7 +12,6 @@ class Card extends Component {
   //correct: 'correct',
   //};
   render() {
-    //const { questionSideUp } = this.state;
     const { question, answer, onQuestionSide, deckId, id } = this.props.card;
     return (
       <View>
@@ -27,15 +26,15 @@ class Card extends Component {
           <Button
             title={onQuestionSide ? 'Answer' : 'Question'}
             onPress={() => {}}
-            //this.setState({
-            //questionSideUp: !this.state.questionSideUp,
-            //})
           />
         </View>
         <View>
           <Button
             title="Correct"
-            onPress={() => this.props.changeAnswerStatus('correct', deckId, id)}
+            onPress={() => {
+              this.props.changeAnswerStatus('correct', deckId, id);
+            }}
+          />
           <Button
             title="Incorrect"
             onPress={() =>
