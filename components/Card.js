@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { changeAnswerStatus } from '../actions';
+import { NavigationActions } from 'react-navigation';
 
 class Card extends Component {
   static navigationOptions = {};
@@ -41,6 +42,33 @@ class Card extends Component {
               this.props.changeAnswerStatus('incorrect', deckId, id)}
           />
         </View>
+        <Button
+          title="Next Card"
+          onPress={() => {
+            const navigationAction = NavigationActions.navigate({
+              routeName: `Card${this.props.cardPosition + 1}`,
+              params: {
+                card: this.props.card,
+                cardPosition: this.props.cardPosition,
+              },
+            });
+            this.props.navigation.dispatch(navigationAction);
+          }}
+        />
+        <Button
+          title="Previous Card"
+          onPress={() => {
+            console.log(this.props.cardPosition);
+            const navigationAction = NavigationActions.navigate({
+              routeName: `Card${this.props.cardPosition - 1}`,
+              params: {
+                card: this.props.card,
+                cardPosition: this.props.cardPosition,
+              },
+            });
+            this.props.navigation.dispatch(navigationAction);
+          }}
+        />
       </View>
     );
   }

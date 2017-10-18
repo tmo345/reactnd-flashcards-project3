@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Foundation } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
-export default class QuizCardDrawer extends Component {
+class QuizCardDrawer extends Component {
   state = {
     activeCard: 'Card1',
   };
@@ -32,11 +33,12 @@ export default class QuizCardDrawer extends Component {
     return <Foundation name={iconName} color={color} size={15} />;
   };
   render() {
-    const cardArray = Object.values(this.props.deck);
+    const cardArray = Object.values(this.props.cards[this.props.deckId]);
     return (
       <ScrollView>
         {cardArray.map((card, index) => {
-          const cardName = `Card${index + 1}`;
+          const cardPosition = index + 1;
+          const cardName = `Card${cardPosition}`;
           return (
             <View
               key={index}
@@ -52,9 +54,10 @@ export default class QuizCardDrawer extends Component {
                 style={{ flex: 1 }}
                 onPress={() => {
                   const navigationAction = NavigationActions.navigate({
-                    routeName: `Card${index + 1}`,
+                    routeName: `Card${cardPosition}`,
                     params: {
                       card,
+                      cardPosition,
                     },
                   });
                   this.props.navigation.dispatch(navigationAction);
@@ -71,6 +74,12 @@ export default class QuizCardDrawer extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ cards }) => ({
+  cards,
+});
+
+export default connect(mapStateToProps)(QuizCardDrawer);
 
 const styles = StyleSheet.create({
   drawerItem: {
