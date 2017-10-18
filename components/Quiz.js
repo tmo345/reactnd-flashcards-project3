@@ -20,9 +20,9 @@ const createCardStackDrawer = (cardsInDeck, deck) => {
       screen: props => (
         <Card
           {...props}
-          card={card}
           deckLength={cardsInDeck.length}
           cardPosition={cardPosition}
+          deckId={deck.id}
         />
       ),
     };

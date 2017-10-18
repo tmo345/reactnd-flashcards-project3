@@ -5,12 +5,6 @@ import { changeAnswerStatus, setCurrentQuestion } from '../actions';
 import { NavigationActions } from 'react-navigation';
 
 class Card extends Component {
-  static navigationOptions = {};
-
-  //state = {
-  //questionSideUp: false,
-  //correct: 'correct',
-  //};
   render() {
     const { question, answer, onQuestionSide, deckId, id } = this.props.card;
     return (
@@ -21,7 +15,7 @@ class Card extends Component {
             title="All Cards"
           />
           <Text>
-            {this.props.quiz.currentQuestion}/{this.props.deckLength}
+            {this.props.currentQuestion}/{this.props.deckLength}
           </Text>
         </View>
         <View style={styles.cardContainer}>
@@ -50,17 +44,9 @@ class Card extends Component {
           <TouchableOpacity
             style={styles.cardNavButtons}
             onPress={() => {
-              const newPosition = this.props.cardPosition - 1;
+              const newPosition = this.props.currentQuestion - 1;
               if (!(newPosition < 1)) {
-                const navigationAction = NavigationActions.navigate({
-                  routeName: `Card${this.props.cardPosition - 1}`,
-                  params: {
-                    card: this.props.card,
-                    cardPosition: this.props.cardPosition,
-                  },
-                });
-                this.props.navigation.dispatch(navigationAction);
-                this.props.setCurrentQuestion(this.props.cardPosition - 1);
+                this.props.setCurrentQuestion(newPosition);
               }
             }}
           >
@@ -69,17 +55,9 @@ class Card extends Component {
           <TouchableOpacity
             style={styles.cardNavButtons}
             onPress={() => {
-              const newPosition = this.props.cardPosition + 1;
+              const newPosition = this.props.currentQuestion + 1;
               if (!(newPosition > this.props.deckLength)) {
-                const navigationAction = NavigationActions.navigate({
-                  routeName: `Card${this.props.cardPosition + 1}`,
-                  params: {
-                    card: this.props.card,
-                    cardPosition: this.props.cardPosition,
-                  },
-                });
-                this.props.navigation.dispatch(navigationAction);
-                this.props.setCurrentQuestion(this.props.cardPosition + 1);
+                this.props.setCurrentQuestion(this.props.currentQuestion + 1);
               }
             }}
           >
@@ -91,7 +69,19 @@ class Card extends Component {
   }
 }
 
-const mapStateToProps = ({ quiz }) => ({ quiz });
+const mapStateToProps = ({ quiz, cards }, { deckId }) => {
+  console.log(
+    cards[deckId].slice(quiz.currentQuestion - 1, quiz.currentQuestion),
+  );
+  return {
+    currentQuestion: quiz.currentQuestion,
+    card: cards[deckId].slice(
+      quiz.currentQuestion - 1,
+      quiz.currentQuestion,
+    )[0],
+  };
+  //card: cards[deckId][cardId],
+};
 const mapDispatchToProps = dispatch => ({
   changeAnswerStatus: (status, deckId, cardId) =>
     dispatch(changeAnswerStatus(status, deckId, cardId)),
