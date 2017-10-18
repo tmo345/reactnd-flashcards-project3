@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { changeAnswerStatus } from '../actions';
+import { changeAnswerStatus, setCurrentQuestion } from '../actions';
 import { NavigationActions } from 'react-navigation';
 
 class Card extends Component {
@@ -15,10 +15,15 @@ class Card extends Component {
     const { question, answer, onQuestionSide, deckId, id } = this.props.card;
     return (
       <View style={styles.container}>
-        <Button
-          onPress={() => this.props.navigation.navigate('DrawerOpen')}
-          title="All Cards"
-        />
+        <View style={styles.cardHeader}>
+          <Button
+            onPress={() => this.props.navigation.navigate('DrawerOpen')}
+            title="All Cards"
+          />
+          <Text>
+            {this.props.quiz.currentQuestion}/{this.props.deckLength}
+          </Text>
+        </View>
         <View style={styles.cardContainer}>
           <Text style={styles.cardText}>
             {onQuestionSide ? question : answer}
@@ -44,28 +49,35 @@ class Card extends Component {
         <Button
           title="Next Card"
           onPress={() => {
-            const navigationAction = NavigationActions.navigate({
-              routeName: `Card${this.props.cardPosition + 1}`,
-              params: {
-                card: this.props.card,
-                cardPosition: this.props.cardPosition,
-              },
-            });
-            this.props.navigation.dispatch(navigationAction);
+            const newPosition = this.props.cardPosition + 1;
+            if (!(newPosition > this.props.deckLength)) {
+              const navigationAction = NavigationActions.navigate({
+                routeName: `Card${this.props.cardPosition + 1}`,
+                params: {
+                  card: this.props.card,
+                  cardPosition: this.props.cardPosition,
+                },
+              });
+              this.props.navigation.dispatch(navigationAction);
+              this.props.setCurrentQuestion(this.props.cardPosition + 1);
+            }
           }}
         />
         <Button
           title="Previous Card"
           onPress={() => {
-            console.log(this.props.cardPosition);
-            const navigationAction = NavigationActions.navigate({
-              routeName: `Card${this.props.cardPosition - 1}`,
-              params: {
-                card: this.props.card,
-                cardPosition: this.props.cardPosition,
-              },
-            });
-            this.props.navigation.dispatch(navigationAction);
+            const newPosition = this.props.cardPosition - 1;
+            if (!(newPosition < 1)) {
+              const navigationAction = NavigationActions.navigate({
+                routeName: `Card${this.props.cardPosition - 1}`,
+                params: {
+                  card: this.props.card,
+                  cardPosition: this.props.cardPosition,
+                },
+              });
+              this.props.navigation.dispatch(navigationAction);
+              this.props.setCurrentQuestion(this.props.cardPosition - 1);
+            }
           }}
         />
       </View>
@@ -73,10 +85,11 @@ class Card extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = ({ quiz }) => ({ quiz });
 const mapDispatchToProps = dispatch => ({
   changeAnswerStatus: (status, deckId, cardId) =>
     dispatch(changeAnswerStatus(status, deckId, cardId)),
+  setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
@@ -85,6 +98,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   cardContainer: {
     borderWidth: 1,

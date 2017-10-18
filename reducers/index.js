@@ -1,4 +1,4 @@
-import { CHANGE_ANSWER_STATUS } from '../actions';
+import { CHANGE_ANSWER_STATUS, SET_CURRENT_QUESTION } from '../actions';
 import { combineReducers } from 'redux';
 
 const initialDeckState = {
@@ -49,6 +49,10 @@ const initialCardState = {
   ],
 };
 
+const initialQuizState = {
+  currentQuestion: 1,
+};
+
 const cards = (state = initialCardState, action) => {
   switch (action.type) {
     case CHANGE_ANSWER_STATUS: {
@@ -80,4 +84,16 @@ const decks = (state = initialDeckState, action) => {
   }
 };
 
-export default combineReducers({ cards, decks });
+const quiz = (state = initialQuizState, action) => {
+  switch (action.type) {
+    case SET_CURRENT_QUESTION:
+      return {
+        currentQuestion: action.position,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ cards, decks, quiz });

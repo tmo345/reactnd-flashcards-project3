@@ -18,7 +18,12 @@ const createCardStackDrawer = (cardsInDeck, deck) => {
     const cardPosition = index + 1;
     config[`Card${index + 1}`] = {
       screen: props => (
-        <Card {...props} card={card} cardPosition={cardPosition} />
+        <Card
+          {...props}
+          card={card}
+          deckLength={cardsInDeck.length}
+          cardPosition={cardPosition}
+        />
       ),
     };
     return config;
