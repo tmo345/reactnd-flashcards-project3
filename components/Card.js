@@ -35,8 +35,11 @@ class Card extends Component {
           <Button
             title="Correct"
             onPress={() => this.props.changeAnswerStatus('correct', deckId, id)}
+          <Button
+            title="Incorrect"
+            onPress={() =>
+              this.props.changeAnswerStatus('incorrect', deckId, id)}
           />
-          <Button title="Incorrect" onPress={() => {}} />
         </View>
       </View>
     );
