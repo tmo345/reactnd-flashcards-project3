@@ -13,8 +13,8 @@ const initialDeckState = {
 };
 
 const initialCardState = {
-  deckId1: {
-    id1: {
+  deckId1: [
+    {
       id: 'id1',
       deckId: 'deckId1',
       question: 'Does reactive native work for android',
@@ -22,7 +22,7 @@ const initialCardState = {
       answerStatus: 'unanswered',
       onQuestionSide: true,
     },
-    id2: {
+    {
       deckId: 'deckId1',
       id: 'id2',
       question: 'What is the meaning of life?',
@@ -46,7 +46,7 @@ const initialCardState = {
     //answerStatus: 'correct',
     //},
     //},
-  },
+  ],
 };
 
 const cards = (state = initialCardState, action) => {
@@ -55,13 +55,16 @@ const cards = (state = initialCardState, action) => {
       const { status, deckId, cardId } = action;
       return {
         ...state,
-        [deckId]: {
-          ...state[deckId],
-          [cardId]: {
-            ...state[deckId][cardId],
-            answerStatus: status,
-          },
-        },
+        [deckId]: state[deckId].map(card => {
+          if (card.id === cardId) {
+            return {
+              ...card,
+              answerStatus: status,
+            };
+          } else {
+            return card;
+          }
+        }),
       };
     }
 
