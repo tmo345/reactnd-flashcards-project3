@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
-import IndividualDeck from './components/IndividualDeck';
+import Deck from './components/Deck';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
 import { Constants } from 'expo';
@@ -66,7 +66,7 @@ const StackNav = StackNavigator({
     screen: Tabs,
   },
   Deck: {
-    screen: IndividualDeck,
+    screen: Deck,
     navigationOptions: {
       headerTintColor: '#fff',
       headerStyle: {

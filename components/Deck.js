@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 import AddCard from './AddCard';
 import { connect } from 'react-redux';
 
-class IndividualDeck extends Component {
+class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.name,
@@ -49,7 +49,7 @@ const mapStateToProps = ({ decks, cards }, { navigation }) => {
   };
 };
 
-export default connect(mapStateToProps)(IndividualDeck);
+export default connect(mapStateToProps)(Deck);
 
 const styles = StyleSheet.create({
   container: {
