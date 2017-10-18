@@ -98,7 +98,11 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider
-        store={createStore(reducer, devToolsEnhancer({ realtime: true }))}
+        store={createStore(
+          reducer,
+          window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__(),
+        )}
       >
         <View style={styles.container}>
           <FlashCardsStatusBar
