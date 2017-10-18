@@ -14,21 +14,21 @@ class Card extends Component {
   render() {
     const { question, answer, onQuestionSide, deckId, id } = this.props.card;
     return (
-      <View>
+      <View style={styles.container}>
         <Button
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
           title="All Cards"
         />
-        <View>
+        <View style={styles.cardContainer}>
           <Text style={styles.cardText}>
             {onQuestionSide ? question : answer}
           </Text>
+        </View>
+        <View>
           <Button
             title={onQuestionSide ? 'Answer' : 'Question'}
             onPress={() => {}}
           />
-        </View>
-        <View>
           <Button
             title="Correct"
             onPress={() => {
@@ -82,6 +82,27 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  cardContainer: {
+    borderWidth: 1,
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: '#ccc',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    borderColor: '#ccc',
+    padding: 20,
+    paddingTop: 60,
+    paddingBottom: 60,
+    margin: 10,
+    marginRight: 20,
+    marginLeft: 20,
+  },
   cardText: {
     textAlign: 'center',
   },
