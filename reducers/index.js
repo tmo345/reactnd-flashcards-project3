@@ -2,6 +2,7 @@ import {
   CHANGE_ANSWER_STATUS,
   SET_CURRENT_QUESTION,
   FLIP_CARD,
+  RESET_CARDS_IN_DECK_TO_QUESTION,
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -97,6 +98,19 @@ const cards = (state = initialCardState, action) => {
           } else {
             return card;
           }
+        }),
+      };
+    }
+
+    case RESET_CARDS_IN_DECK_TO_QUESTION: {
+      const { deckId } = action;
+      return {
+        ...state,
+        [deckId]: state[deckId].map(card => {
+          return {
+            ...card,
+            onQuestionSide: true,
+          };
         }),
       };
     }

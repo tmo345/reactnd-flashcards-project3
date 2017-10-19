@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 import AddCard from './AddCard';
 import { connect } from 'react-redux';
+import { resetCardInDeckToQuestion } from '../actions';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,11 +29,13 @@ class Deck extends Component {
           <View style={styles.buttonContainer}>
             <Button
               title="Start Quiz"
-              onPress={() =>
+              onPress={() => {
+                this.props.resetCardInDeckToQuestion(deck.id);
                 this.props.navigation.navigate('Quiz', {
                   deckId: deck.id,
                   name: deck.name,
-                })}
+                });
+              }}
             />
           </View>
         </View>
@@ -49,7 +52,12 @@ const mapStateToProps = ({ decks, cards }, { navigation }) => {
   };
 };
 
-export default connect(mapStateToProps)(Deck);
+const mapDispatchToProps = dispatch => ({
+  resetCardInDeckToQuestion: deckId =>
+    dispatch(resetCardInDeckToQuestion(deckId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deck);
 
 const styles = StyleSheet.create({
   container: {
