@@ -1,4 +1,8 @@
-import { CHANGE_ANSWER_STATUS, SET_CURRENT_QUESTION } from '../actions';
+import {
+  CHANGE_ANSWER_STATUS,
+  SET_CURRENT_QUESTION,
+  FLIP_CARD,
+} from '../actions';
 import { combineReducers } from 'redux';
 
 const initialDeckState = {
@@ -72,6 +76,23 @@ const cards = (state = initialCardState, action) => {
             return {
               ...card,
               answerStatus: status,
+            };
+          } else {
+            return card;
+          }
+        }),
+      };
+    }
+
+    case FLIP_CARD: {
+      const { deckId, cardId } = action;
+      return {
+        ...state,
+        [deckId]: state[deckId].map(card => {
+          if (card.id === cardId) {
+            return {
+              ...card,
+              onQuestionSide: !card.onQuestionSide,
             };
           } else {
             return card;

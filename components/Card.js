@@ -26,7 +26,7 @@ class Card extends Component {
         <View>
           <Button
             title={onQuestionSide ? 'Answer' : 'Question'}
-            onPress={() => {}}
+            onPress={() => this.props.flipCard(deckId, id)}
           />
           <Button
             title="Correct"
@@ -82,7 +82,8 @@ const mapStateToProps = ({ quiz, cards }, { deckId }) => {
 const mapDispatchToProps = dispatch => ({
   changeAnswerStatus: (status, deckId, cardId) =>
     dispatch(changeAnswerStatus(status, deckId, cardId)),
-  setCurrentQuestion: position => dispatch(setCurrentQuestion(position))
+  setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
+  flipCard: (deckId, cardId) => dispatch(flipCard(deckId, cardId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
