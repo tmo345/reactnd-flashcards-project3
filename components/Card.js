@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { connect } from 'react-redux';
-import { changeAnswerStatus, setCurrentQuestion } from '../actions';
+import { changeAnswerStatus, setCurrentQuestion, flipCard } from '../actions';
 import { NavigationActions } from 'react-navigation';
 
 class Card extends Component {
   render() {
+    console.log(this.props);
     const { question, answer, onQuestionSide, deckId, id } = this.props.card;
+    const { width } = Dimensions.get('window');
     return (
-      <View style={styles.container}>
-        <View style={styles.cardHeader}>
-          <Button
-            onPress={() => this.props.navigation.navigate('DrawerOpen')}
-            title="All Cards"
-          />
-          <Text>
-            {this.props.currentQuestion}/{this.props.deckLength}
-          </Text>
-        </View>
+      <View style={[styles.container, { width }]}>
         <View style={styles.cardContainer}>
+          <Text style={styles.currentNumber}>
+            {this.props.cardNumber}/{this.props.deckLength}
+          </Text>
           <Text style={styles.cardText}>
             {onQuestionSide ? question : answer}
           </Text>
@@ -40,44 +43,15 @@ class Card extends Component {
               this.props.changeAnswerStatus('incorrect', deckId, id)}
           />
         </View>
-        <View style={styles.cardNav}>
-          <TouchableOpacity
-            style={styles.cardNavButtons}
-            onPress={() => {
-              const newPosition = this.props.currentQuestion - 1;
-              if (!(newPosition < 1)) {
-                this.props.setCurrentQuestion(newPosition);
-              }
-            }}
-          >
-            <Text style={styles.cardNavText}>Previous</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cardNavButtons}
-            onPress={() => {
-              const newPosition = this.props.currentQuestion + 1;
-              if (!(newPosition > this.props.deckLength)) {
-                this.props.setCurrentQuestion(this.props.currentQuestion + 1);
-              }
-            }}
-          >
-            <Text style={styles.cardNavText}>Next</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     );
   }
 }
 
 const mapStateToProps = ({ quiz, cards }, { deckId }) => {
-  console.log(
-    cards[deckId].slice(quiz.currentQuestion - 1, quiz.currentQuestion)
-  );
   return {
     currentQuestion: quiz.currentQuestion,
-    card: cards[deckId].slice(quiz.currentQuestion - 1, quiz.currentQuestion)[0]
   };
-  //card: cards[deckId][cardId],
 };
 const mapDispatchToProps = dispatch => ({
   changeAnswerStatus: (status, deckId, cardId) =>
@@ -91,46 +65,57 @@ export default connect(mapStateToProps, mapDispatchToProps)(Card);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: '#fff'
+    alignSelf: 'stretch',
+    alignItems: 'stretch',
+    backgroundColor: '#fff',
   },
   cardHeader: {
+    //flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 0,
   },
   cardContainer: {
+    flex: 1,
+    //alignSelf: 'stretch',
     borderWidth: 1,
     shadowRadius: 3,
     shadowOpacity: 0.8,
     shadowColor: '#ccc',
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 3,
     },
     borderColor: '#ccc',
-    padding: 20,
+    //padding: 20,
     paddingTop: 60,
     paddingBottom: 60,
-    margin: 10,
-    marginRight: 20,
-    marginLeft: 20
+    margin: 0,
   },
   cardNav: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
     //paddingTop: 20,
     //paddingBottom: 20,
   },
   cardNavButtons: {
-    flex: 1,
+    //flex: 1,
     padding: 30,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#222'
+    borderColor: '#222',
   },
   cardNavText: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cardText: {
-    textAlign: 'center'
-  }
+    fontSize: 16,
+  },
+  currentNumber: {
+    marginRight: 20,
+    fontSize: 14,
+  },
+  allCardsButton: {
+    padding: 20,
+  },
 });
