@@ -10,11 +10,34 @@ import {
 import { connect } from 'react-redux';
 import { changeAnswerStatus, setCurrentQuestion, flipCard } from '../actions';
 import { NavigationActions } from 'react-navigation';
+import { Foundation } from '@expo/vector-icons';
 
 class Card extends Component {
+  renderAnswerStatusIcon = answerStatus => {
+    let iconName;
+    let color;
+    if (answerStatus === 'correct') {
+      iconName = 'check';
+      color = 'green';
+    } else if (answerStatus === 'incorrect') {
+      iconName = 'x';
+      color = 'red';
+    } else {
+      iconName = 'minus';
+      color = 'blue';
+    }
+    return <Foundation name={iconName} color={color} size={15} />;
+  };
+
   render() {
-    console.log(this.props);
-    const { question, answer, onQuestionSide, deckId, id } = this.props.card;
+    const {
+      question,
+      answer,
+      onQuestionSide,
+      answerStatus,
+      deckId,
+      id,
+    } = this.props.card;
     const { width } = Dimensions.get('window');
     return (
       <View style={[styles.container, { width }]}>
@@ -27,21 +50,32 @@ class Card extends Component {
           </Text>
         </View>
         <View>
+          <Text>Status: {this.renderAnswerStatusIcon(answerStatus)}</Text>
+        </View>
+        <View>
           <Button
-            title={onQuestionSide ? 'Answer' : 'Question'}
+            title="Flip Card"
             onPress={() => this.props.flipCard(deckId, id)}
           />
-          <Button
-            title="Correct"
+        </View>
+        <View style={styles.markAnswerStatus}>
+          <TouchableOpacity
+            style={styles.markAnswerStatusButtons}
             onPress={() => {
               this.props.changeAnswerStatus('correct', deckId, id);
             }}
-          />
-          <Button
-            title="Incorrect"
+          >
+            {this.renderAnswerStatusIcon('correct')}
+            <Text>Mark Correct</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.markAnswerStatusButtons}
             onPress={() =>
               this.props.changeAnswerStatus('incorrect', deckId, id)}
-          />
+          >
+            {this.renderAnswerStatusIcon('incorrect')}
+            <Text>Mark Incorrect</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -117,5 +151,14 @@ const styles = StyleSheet.create({
   },
   allCardsButton: {
     padding: 20,
+  },
+  markAnswerStatus: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  markAnswerStatusButtons: {
+    paddingBottom: 15,
+    paddingTop: 15,
   },
 });
