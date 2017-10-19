@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Platform,
   TouchableOpacity,
+  FlatList,
+  ScrollView,
 } from 'react-native';
 
 class DeckList extends Component {
@@ -15,26 +17,29 @@ class DeckList extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.deckList}>
-          {deckIds.map((deckId, index) => {
-            const deckName = decks[deckId]['name'];
+        <FlatList
+          style={styles.deckList}
+          data={Object.values(decks)}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => {
+            const { name, id } = item;
             return (
-              <TouchableOpacity
-                key={index}
-                onPress={() =>
-                  this.props.navigation.navigate('Deck', {
-                    deckId,
-                    name: deckName,
-                  })}
-              >
-                <View style={styles.deck}>
-                  <Text>{deckName}</Text>
-                  <Text>{cards[deckId].length} cards</Text>
-                </View>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity
+                  style={styles.deck}
+                  onPress={() =>
+                    this.props.navigation.navigate('Deck', {
+                      deckId: id,
+                      name,
+                    })}
+                >
+                  <Text>{name}</Text>
+                  <Text>{cards[id].length} cards</Text>
+                </TouchableOpacity>
+              </View>
             );
-          })}
-        </View>
+          }}
+        />
       </View>
     );
   }
@@ -52,7 +57,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    justifyContent: Platform.OS === 'ios' ? 'flex-end' : 'flex-start',
   },
   deck: {
     alignItems: 'center',
