@@ -3,6 +3,8 @@ export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
 export const FLIP_CARD = 'FLIP_CARD';
 export const RESET_CARDS_IN_DECK_TO_QUESTION =
   'RESET_CARDS_IN_DECK_TO_QUESTION';
+export const ADD_NEW_DECK = 'ADD_NEW_DECK';
+import uuidv4 from 'uuid/v4';
 
 export const changeAnswerStatus = (status, deckId, cardId) => ({
   type: CHANGE_ANSWER_STATUS,
@@ -26,3 +28,12 @@ export const resetCardInDeckToQuestion = deckId => ({
   type: RESET_CARDS_IN_DECK_TO_QUESTION,
   deckId,
 });
+
+export const addNewDeck = name => {
+  const id = uuidv4();
+  return {
+    type: ADD_NEW_DECK,
+    name,
+    id,
+  };
+};

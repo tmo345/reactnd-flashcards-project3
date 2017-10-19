@@ -3,6 +3,7 @@ import {
   SET_CURRENT_QUESTION,
   FLIP_CARD,
   RESET_CARDS_IN_DECK_TO_QUESTION,
+  ADD_NEW_DECK,
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -115,6 +116,14 @@ const cards = (state = initialCardState, action) => {
       };
     }
 
+    case ADD_NEW_DECK: {
+      const { id } = action;
+      return {
+        ...state,
+        [id]: [],
+      };
+    }
+
     default:
       return state;
   }
@@ -122,6 +131,17 @@ const cards = (state = initialCardState, action) => {
 
 const decks = (state = initialDeckState, action) => {
   switch (action.type) {
+    case ADD_NEW_DECK: {
+      const { id, name } = action;
+      return {
+        ...state,
+        [id]: {
+          id,
+          name,
+        },
+      };
+    }
+
     default:
       return state;
   }

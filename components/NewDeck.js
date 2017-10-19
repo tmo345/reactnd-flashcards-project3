@@ -7,9 +7,16 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { addNewDeck } from '../actions';
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
+  state = {
+    deckTitle: '',
+  };
+
   render() {
     return (
       /**
@@ -19,17 +26,30 @@ export default class NewDeck extends Component {
        * https://stackoverflow.com/questions/29685421/react-native-hide-keyboard
        */
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <Text>What is the title of your new deck?</Text>
-          <TextInput style={styles.textInput} placeholder="Deck Title" />
-          <TouchableOpacity>
+          <TextInput
+            onChangeText={text => {
+              console.log(text);
+              this.setState({ deckTitle: text });
+            }}
+            style={styles.textInput}
+            placeholder="Deck Title"
+            value={this.state.deckTitle}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              this.props.dispatch(addNewDeck(this.state.deckTitle))}
+          >
             <Text>Submit</Text>
           </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     );
   }
 }
+
+export default connect()(NewDeck);
 
 const styles = StyleSheet.create({
   container: {

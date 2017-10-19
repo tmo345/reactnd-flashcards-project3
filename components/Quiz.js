@@ -103,7 +103,7 @@ class Quiz extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalOpen}
-          //onRequestClose={() => {
+          onRequestClose={() => {}}
         >
           <View style={{ marginTop: 22 }}>
             <View>
@@ -136,7 +136,6 @@ class Quiz extends Component {
           <Button
             title="Flip Card"
             onPress={() => {
-              console.log(deck.id, currentCard.id);
               this.props.flipCard(deck.id, currentCard.id);
             }}
           />
