@@ -13,7 +13,7 @@ export const changeAnswerStatus = (status, deckId, cardId) => ({
 
 export const setCurrentQuestion = position => ({
   type: SET_CURRENT_QUESTION,
-  position,
+  position: position >= 1 ? position : 1,
 });
 
 export const flipCard = (deckId, cardId) => ({

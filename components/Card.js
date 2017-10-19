@@ -8,27 +8,25 @@ import {
   Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { changeAnswerStatus, setCurrentQuestion, flipCard } from '../actions';
 import { NavigationActions } from 'react-navigation';
-import { Foundation } from '@expo/vector-icons';
+import { Foundation, Ionicons } from '@expo/vector-icons';
 
 class Card extends Component {
   renderAnswerStatusIcon = answerStatus => {
     let iconName;
     let color;
     if (answerStatus === 'correct') {
-      iconName = 'check';
+      iconName = 'ios-checkmark-circle-outline';
       color = 'green';
     } else if (answerStatus === 'incorrect') {
-      iconName = 'x';
+      iconName = 'ios-close-circle-outline';
       color = 'red';
     } else {
-      iconName = 'minus';
+      iconName = 'ios-radio-button-off-outline';
       color = 'blue';
     }
-    return <Foundation name={iconName} color={color} size={15} />;
+    return <Ionicons name={iconName} color={color} size={30} />;
   };
-
   render() {
     const {
       question,
@@ -38,44 +36,29 @@ class Card extends Component {
       deckId,
       id,
     } = this.props.card;
+    const currentQuestion = this.props;
     const { width } = Dimensions.get('window');
     return (
       <View style={[styles.container, { width }]}>
         <View style={styles.cardContainer}>
-          <Text style={styles.currentNumber}>
-            {this.props.cardNumber}/{this.props.deckLength}
-          </Text>
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              padding: 15,
+              flexDirection: 'row',
+            }}
+          >
+            <Text>
+              {currentQuestion - 1 >= 0
+                ? this.renderAnswerStatusIcon(answerStatus)
+                : this.renderAnswerStatusIcon(answerStatus)}
+            </Text>
+          </View>
           <Text style={styles.cardText}>
             {onQuestionSide ? question : answer}
           </Text>
-        </View>
-        <View>
-          <Text>Status: {this.renderAnswerStatusIcon(answerStatus)}</Text>
-        </View>
-        <View>
-          <Button
-            title="Flip Card"
-            onPress={() => this.props.flipCard(deckId, id)}
-          />
-        </View>
-        <View style={styles.markAnswerStatus}>
-          <TouchableOpacity
-            style={styles.markAnswerStatusButtons}
-            onPress={() => {
-              this.props.changeAnswerStatus('correct', deckId, id);
-            }}
-          >
-            {this.renderAnswerStatusIcon('correct')}
-            <Text>Mark Correct</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.markAnswerStatusButtons}
-            onPress={() =>
-              this.props.changeAnswerStatus('incorrect', deckId, id)}
-          >
-            {this.renderAnswerStatusIcon('incorrect')}
-            <Text>Mark Incorrect</Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -88,10 +71,7 @@ const mapStateToProps = ({ quiz, cards }, { deckId }) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  changeAnswerStatus: (status, deckId, cardId) =>
-    dispatch(changeAnswerStatus(status, deckId, cardId)),
   setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
-  flipCard: (deckId, cardId) => dispatch(flipCard(deckId, cardId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
@@ -158,7 +138,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   markAnswerStatusButtons: {
+    flexGrow: 1,
     paddingBottom: 15,
     paddingTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  markAnswerText: {
+    color: 'white',
   },
 });
