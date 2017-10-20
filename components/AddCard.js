@@ -95,7 +95,7 @@ class AddCard extends Component {
 
           <Button
             style={styles.submitButton}
-            disabled={false}
+            disabled={question.length === 0 || answer.length === 0}
             onPress={this.submitAddCard}
             title="Add Card"
             color="#2884CB"
