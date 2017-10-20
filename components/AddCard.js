@@ -66,47 +66,50 @@ class AddCard extends Component {
        * onPress
        * https://stackoverflow.com/questions/29685421/react-native-hide-keyboard
        */
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.formText}>Question</Text>
-          <TextInput
-            value={this.state.question}
-            onChangeText={this.onQuestionChange}
-            onFocus={this.onQuestionFocus}
-            onBlur={this.onQuestionBlur}
-            multiline={true}
-            style={[
-              styles.textInput,
-              this.state.questionFocused && styles.focusedStyle,
-            ]}
-          />
-          <Text style={styles.formText}>Answer</Text>
-          <TextInput
-            value={this.state.answer}
-            onChangeText={this.onAnswerChange}
-            onFocus={this.onAnswerFocus}
-            onBlur={this.onAnswerBlur}
-            multiline={true}
-            style={[
-              styles.textInput,
-              this.state.answerFocused && styles.focusedStyle,
-            ]}
+      <KeyboardAvoidingView
+        behavior="position"
+        keyboardVerticalOffset={-150}
+        style={styles.inputContainer}
+      >
         {displayFormSuccessMessage && (
           <FormSuccessMessage
             submittedItem="Card"
             dismissFormSuccessMessage={this.dismissFormSuccessMessage}
           />
         )}
+        <Text style={styles.formText}>Question</Text>
+        <TextInput
+          value={this.state.question}
+          onChangeText={this.onQuestionChange}
+          onFocus={this.onQuestionFocus}
+          onBlur={this.onQuestionBlur}
+          //multiline={true}
+          style={[
+            styles.textInput,
+            this.state.questionFocused && styles.focusedStyle,
+          ]}
+        />
+        <Text style={styles.formText}>Answer</Text>
+        <TextInput
+          value={this.state.answer}
+          onChangeText={this.onAnswerChange}
+          onFocus={this.onAnswerFocus}
+          onBlur={this.onAnswerBlur}
+          //multiline={true}
+          style={[
+            styles.textInput,
+            this.state.answerFocused && styles.focusedStyle,
+          ]}
+        />
 
-          <Button
-            style={styles.submitButton}
-            disabled={question.length === 0 || answer.length === 0}
-            onPress={this.submitAddCard}
-            title="Add Card"
-            color="#2884CB"
-          />
-        </View>
-      </TouchableWithoutFeedback>
+        <Button
+          style={styles.submitButton}
+          disabled={question.length === 0 || answer.length === 0}
+          onPress={this.submitAddCard}
+          title="Add Card"
+          color="#2884CB"
+        />
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -119,26 +122,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     padding: 7.5,
-    marginBottom: 10,
+    marginBottom: 20,
     fontSize: 16,
     backgroundColor: '#fff',
   },
   formText: {
     fontSize: 18,
-    paddingBottom: 20,
+    paddingBottom: 15,
   },
   inputContainer: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 50,
+    alignItems: 'stretch',
+    paddingTop: 30,
     paddingBottom: 10,
     padding: 20,
     backgroundColor: '#fff',
   },
-  submitButton: {},
-  submitButtonText: {
-    color: '#fff',
+  submitButton: {
+    paddingBottom: 20,
   },
   focusedStyle: {
     borderColor: '#84ACCB',
