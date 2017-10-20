@@ -46,7 +46,19 @@ const Tabs = TabNavigator(
   },
   {
     navigationOptions: {
-      header: null,
+      header: (
+        <View
+          style={{
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Text style={{ color: '#fff', fontSize: 18, paddingLeft: 20 }}>
+            Flashcards Project
+          </Text>
+        </View>
+      ),
     },
     tabBarOptions: {
       activeTintColor: '#fff',
