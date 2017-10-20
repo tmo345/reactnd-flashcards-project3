@@ -68,7 +68,7 @@ class AddCard extends Component {
        */
       <KeyboardAvoidingView
         behavior="position"
-        keyboardVerticalOffset={-150}
+        keyboardVerticalOffset={-50}
         style={styles.inputContainer}
       >
         {displayFormSuccessMessage && (
@@ -77,6 +77,7 @@ class AddCard extends Component {
             dismissFormSuccessMessage={this.dismissFormSuccessMessage}
           />
         )}
+        <Text style={styles.heading}>New Flashcard</Text>
         <Text style={styles.formText}>Question</Text>
         <TextInput
           value={this.state.question}
@@ -122,21 +123,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     padding: 7.5,
-    marginBottom: 20,
+    marginBottom: 15,
     fontSize: 16,
     backgroundColor: '#fff',
   },
   formText: {
-    fontSize: 18,
+    fontSize: 16,
     paddingBottom: 15,
+  },
+  heading: {
+    fontSize: 20,
+    marginBottom: 20,
   },
   inputContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'stretch',
     paddingTop: 30,
-    paddingBottom: 10,
     padding: 20,
+    paddingBottom: 50,
     backgroundColor: '#fff',
   },
   submitButton: {
