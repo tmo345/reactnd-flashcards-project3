@@ -108,11 +108,6 @@ class AddCard extends Component {
 
 export default connect()(AddCard);
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
   textInput: {
     alignSelf: 'stretch',
     borderColor: '#ccc',
@@ -131,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    marginTop: 50,
+    paddingTop: 50,
     paddingBottom: 10,
     padding: 20,
     backgroundColor: '#fff',
