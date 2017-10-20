@@ -15,17 +15,32 @@ class Card extends Component {
   renderAnswerStatusIcon = answerStatus => {
     let iconName;
     let color;
+    let message;
     if (answerStatus === 'correct') {
-      iconName = 'ios-checkmark-circle-outline';
+      iconName = 'ios-checkmark';
       color = 'green';
+      message = 'Correct';
     } else if (answerStatus === 'incorrect') {
-      iconName = 'ios-close-circle-outline';
+      iconName = 'ios-close';
       color = 'red';
+      message = 'Incorrect';
     } else {
-      iconName = 'ios-radio-button-off-outline';
-      color = 'blue';
+      let message = 'Unanswered';
+      return (
+        <View style={styles.markAnswerStatus}>
+          <Text style={{ paddingTop: 5 }}>{message}</Text>
+        </View>
+      );
+      return;
     }
-    return <Ionicons name={iconName} color={color} size={30} />;
+    return (
+      <View style={styles.markAnswerStatus}>
+        <Ionicons name={iconName} color={color} size={35} />
+        <Text style={{ color, marginLeft: 5, paddingBottom: 2.5 }}>
+          {message}
+        </Text>
+      </View>
+    );
   };
   render() {
     const {
@@ -50,11 +65,7 @@ class Card extends Component {
               flexDirection: 'row',
             }}
           >
-            <Text>
-              {currentQuestion - 1 >= 0
-                ? this.renderAnswerStatusIcon(answerStatus)
-                : this.renderAnswerStatusIcon(answerStatus)}
-            </Text>
+            <View>{this.renderAnswerStatusIcon(answerStatus)}</View>
           </View>
           <Text style={styles.cardText}>
             {onQuestionSide ? question : answer}
