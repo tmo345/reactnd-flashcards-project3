@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 import AddCard from './AddCard';
 import { connect } from 'react-redux';
 import { resetCardsInDeckToQuestion } from '../actions';
+import PropTypes from 'prop-types';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -18,10 +19,6 @@ class Deck extends Component {
           <Text style={styles.deckName}>{deck.name}</Text>
           <Text style={styles.numberOfCards}>{cardsInDeck.length} cards</Text>
         </View>
-        {/*}<View style={styles.scores}>
-          <Text>Best Score: 90%</Text>
-          <Text>Last Score: 70%</Text>
-        </View>*/}
         <View style={styles.buttons}>
           <View style={styles.buttonContainer}>
             <Button
@@ -50,6 +47,12 @@ class Deck extends Component {
     );
   }
 }
+
+Deck.propTypes = {
+  deck: PropTypes.object.isRequired,
+  cardsInDeck: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = ({ decks, cards }, { navigation }) => {
   const { deckId } = navigation.state.params;
