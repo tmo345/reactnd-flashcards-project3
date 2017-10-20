@@ -4,6 +4,7 @@ import {
   FLIP_CARD,
   RESET_CARDS_IN_DECK_TO_QUESTION,
   ADD_NEW_DECK,
+  ADD_NEW_CARD,
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -121,6 +122,24 @@ const cards = (state = initialCardState, action) => {
       return {
         ...state,
         [id]: [],
+      };
+    }
+
+    case ADD_NEW_CARD: {
+      const {
+        id,
+        deckId,
+        question,
+        answer,
+        answerStatus,
+        onQuestionSide,
+      } = action;
+      return {
+        ...state,
+        [deckId]: [
+          ...state[deckId],
+          { id, deckId, question, answer, answerStatus, onQuestionSide },
+        ],
       };
     }
 

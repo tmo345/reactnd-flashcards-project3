@@ -23,7 +23,10 @@ class Deck extends Component {
             <Button
               title="Add Card"
               onPress={() =>
-                this.props.navigation.navigate('AddCard', { name: 'Add Card' })}
+                this.props.navigation.navigate('AddCard', {
+                  name: 'Add Card',
+                  deckId: deck.id,
+                })}
             />
           </View>
           <View style={styles.buttonContainer}>
