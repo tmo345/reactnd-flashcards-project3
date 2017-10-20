@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#fff',
     padding: 40,
-    paddingTop: 80,
     paddingBottom: 80,
   },
   deckInformation: {
