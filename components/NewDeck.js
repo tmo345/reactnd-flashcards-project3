@@ -10,6 +10,7 @@ import {
   Button,
   KeyboardAvoidingView,
   Alert,
+  ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addNewDeck } from '../actions';
@@ -45,35 +46,39 @@ class NewDeck extends Component {
        */
       <KeyboardAvoidingView
         behavior="position"
-        keyboardVerticalOffset={-100}
+        keyboardVerticalOffset={-80}
         style={styles.inputContainer}
       >
-        {displayFormSuccessMessage && (
-          <FormSuccessMessage
-            submittedItem="Deck"
-            dismissFormSuccessMessage={this.dismissFormSuccessMessage}
+        <ScrollView scrollEnabled={false}>
+          {displayFormSuccessMessage && (
+            <FormSuccessMessage
+              submittedItem="Deck"
+              dismissFormSuccessMessage={this.dismissFormSuccessMessage}
+            />
+          )}
+          <Text style={styles.formText}>
+            What is the title of your new deck?
+          </Text>
+          <TextInput
+            onChangeText={text => {
+              this.setState({ deckTitle: text });
+            }}
+            style={[
+              styles.textInput,
+              this.state.deckTitleFocused && styles.focusedStyle,
+            ]}
+            value={deckTitle}
+            onFocus={this.onDeckTitleFocus}
+            onBlur={this.onDeckTitleBlur}
           />
-        )}
-        <Text style={styles.formText}>What is the title of your new deck?</Text>
-        <TextInput
-          onChangeText={text => {
-            this.setState({ deckTitle: text });
-          }}
-          style={[
-            styles.textInput,
-            this.state.deckTitleFocused && styles.focusedStyle,
-          ]}
-          value={deckTitle}
-          onFocus={this.onDeckTitleFocus}
-          onBlur={this.onDeckTitleBlur}
-        />
-        <Button
-          style={styles.submitButton}
-          disabled={deckTitle.length === 0}
-          onPress={this.submitNewDeck}
-          title="Add Deck"
-          color="#2884CB"
-        />
+          <Button
+            style={styles.submitButton}
+            disabled={deckTitle.length === 0}
+            onPress={this.submitNewDeck}
+            title="Add Deck"
+            color="#2884CB"
+          />
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingTop: 50,
+    paddingTop: 80,
     paddingBottom: 10,
     padding: 20,
     backgroundColor: '#fff',

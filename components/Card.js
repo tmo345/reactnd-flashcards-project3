@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cardText: {
-    fontSize: 16,
+    fontSize: 18,
+    padding: 20,
   },
   currentNumber: {
     marginRight: 20,

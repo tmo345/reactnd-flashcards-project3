@@ -76,16 +76,16 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#fff',
     padding: 40,
-    paddingBottom: 80,
-    paddingTop: 90,
+    //paddingBottom: 80,
+    //paddingTop: 90,
   },
   deckInformation: {
     alignItems: 'flex-start',
-    flex: 0.75,
-    //borderColor: 'blue',
+    marginBottom: 80,
   },
   buttons: {
-    flex: 1,
+    //flex: 1,
+    marginTop: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
