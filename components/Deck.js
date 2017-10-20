@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 import AddCard from './AddCard';
 import { connect } from 'react-redux';
-import { resetCardInDeckToQuestion } from '../actions';
+import { resetCardsInDeckToQuestion } from '../actions';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -14,11 +14,15 @@ class Deck extends Component {
     const { deck, cardsInDeck } = this.props;
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.deckInformation}>
           <Text style={styles.deckName}>{deck.name}</Text>
           <Text style={styles.numberOfCards}>{cardsInDeck.length} cards</Text>
         </View>
-        <View>
+        {/*}<View style={styles.scores}>
+          <Text>Best Score: 90%</Text>
+          <Text>Last Score: 70%</Text>
+        </View>*/}
+        <View style={styles.buttons}>
           <View style={styles.buttonContainer}>
             <Button
               title="Add Card"
@@ -33,7 +37,7 @@ class Deck extends Component {
             <Button
               title="Start Quiz"
               onPress={() => {
-                this.props.resetCardInDeckToQuestion(deck.id);
+                this.props.resetCardsInDeckToQuestion(deck.id);
                 this.props.navigation.navigate('Quiz', {
                   deckId: deck.id,
                   name: deck.name,
@@ -56,8 +60,8 @@ const mapStateToProps = ({ decks, cards }, { navigation }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  resetCardInDeckToQuestion: deckId =>
-    dispatch(resetCardInDeckToQuestion(deckId)),
+  resetCardsInDeckToQuestion: deckId =>
+    dispatch(resetCardsInDeckToQuestion(deckId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Deck);
@@ -65,19 +69,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(Deck);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#fff',
+    padding: 40,
+    paddingTop: 80,
+    paddingBottom: 80,
+  },
+  deckInformation: {
+    alignItems: 'flex-start',
+    flex: 0.75,
+    //borderColor: 'blue',
+  },
+  buttons: {
+    flex: 1,
   },
   buttonContainer: {
-    margin: 10,
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: 'flex-start',
   },
   deckName: {
-    fontSize: 24,
-    textAlign: 'center',
-    paddingBottom: 10,
+    fontSize: 28,
+    marginBottom: 30,
   },
   numberOfCards: {
-    fontSize: 20,
-    textAlign: 'center',
+    fontSize: 18,
   },
 });

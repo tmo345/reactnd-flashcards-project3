@@ -26,7 +26,7 @@ export const flipCard = (deckId, cardId) => ({
   deckId,
 });
 
-export const resetCardInDeckToQuestion = deckId => ({
+export const resetCardsInDeckToQuestion = deckId => ({
   type: RESET_CARDS_IN_DECK_TO_QUESTION,
   deckId,
 });
