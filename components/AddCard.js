@@ -12,6 +12,7 @@ import {
   Button,
 } from 'react-native';
 import { addNewCard } from '../actions';
+import FormSuccessMessage from './FormSuccessMessage';
 
 class AddCard extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -38,7 +39,6 @@ class AddCard extends Component {
       displayFormSuccessMessage: true,
     });
     Keyboard.dismiss();
-    setTimeout(() => this.setState({ displayFormSuccessMessage: false }), 2000);
   };
 
   onQuestionFocus = () => {
@@ -54,6 +54,9 @@ class AddCard extends Component {
   onQuestionChange = text => this.setState({ question: text });
   onAnswerChange = text => this.setState({ answer: text });
 
+  dismissFormSuccessMessage = () =>
+    this.setState({ displayFormSuccessMessage: false });
+
   render() {
     const { question, answer, displayFormSuccessMessage } = this.state;
     return (
@@ -65,9 +68,6 @@ class AddCard extends Component {
        */
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inputContainer}>
-          {displayFormSuccessMessage && (
-            <Text style={{ color: 'green' }}>Card successfully added</Text>
-          )}
           <Text style={styles.formText}>Question</Text>
           <TextInput
             value={this.state.question}
@@ -91,7 +91,12 @@ class AddCard extends Component {
               styles.textInput,
               this.state.answerFocused && styles.focusedStyle,
             ]}
+        {displayFormSuccessMessage && (
+          <FormSuccessMessage
+            submittedItem="Card"
+            dismissFormSuccessMessage={this.dismissFormSuccessMessage}
           />
+        )}
 
           <Button
             style={styles.submitButton}
