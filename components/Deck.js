@@ -72,11 +72,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(Deck);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'flex-start',
     backgroundColor: '#fff',
     padding: 40,
     paddingBottom: 80,
+    paddingTop: 90,
   },
   deckInformation: {
     alignItems: 'flex-start',
