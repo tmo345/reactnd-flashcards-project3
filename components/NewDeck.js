@@ -15,6 +15,7 @@ import {
 import { connect } from 'react-redux';
 import { addNewDeck } from '../actions';
 import FormSuccessMessage from './FormSuccessMessage';
+import { NavigationActions } from 'react-navigation';
 
 class NewDeck extends Component {
   state = {
@@ -24,16 +25,22 @@ class NewDeck extends Component {
   };
 
   submitNewDeck = text => {
-    this.props.dispatch(addNewDeck(this.state.deckTitle));
-    this.setState({ deckTitle: '', displayFormSuccessMessage: true });
-    Keyboard.dismiss();
+    const newDeckAction = addNewDeck(this.state.deckTitle);
+    this.props.dispatch(newDeckAction);
+    const navigationAction = NavigationActions.navigate({
+      routeName: 'Deck',
+      params: { deckId: newDeckAction.id, name: newDeckAction.name },
+    });
+
+    this.setState({ deckTitle: '' });
+    this.props.navigation.dispatch(navigationAction);
   };
 
   onDeckTitleFocus = () => this.setState({ deckTitleFocused: true });
   onDeckTitleBlur = () => this.setState({ deckTitleFocused: false });
 
-  dismissFormSuccessMessage = () =>
-    this.setState({ displayFormSuccessMessage: false });
+  //dismissFormSuccessMessage = () =>
+  //this.setState({ displayFormSuccessMessage: false });
 
   render() {
     const { deckTitle, displayFormSuccessMessage } = this.state;
