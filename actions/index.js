@@ -7,6 +7,8 @@ export const RESET_CARDS_IN_DECK_TO_QUESTION =
   'RESET_CARDS_IN_DECK_TO_QUESTION';
 export const ADD_NEW_DECK = 'ADD_NEW_DECK';
 export const ADD_NEW_CARD = 'ADD_NEW_CARD';
+export const OPEN_QUIZ_RESULTS = 'OPEN_QUIZ_RESULTS';
+export const CLOSE_QUIZ_RESULTS = 'CLOSE_QUIZ_RESULTS';
 
 export const changeAnswerStatus = (status, deckId, cardId) => ({
   type: CHANGE_ANSWER_STATUS,
@@ -52,3 +54,11 @@ export const addNewCard = (deckId, question, answer) => {
     onQuestionSide: true,
   };
 };
+
+export const openQuizResults = () => ({
+  type: OPEN_QUIZ_RESULTS,
+});
+
+export const closeQuizResults = () => ({
+  type: CLOSE_QUIZ_RESULTS,
+});

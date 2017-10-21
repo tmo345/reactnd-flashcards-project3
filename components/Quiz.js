@@ -15,9 +15,15 @@ import Card from './Card';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
 import { connect } from 'react-redux';
-import { changeAnswerStatus, setCurrentQuestion, flipCard } from '../actions';
+import {
+  changeAnswerStatus,
+  setCurrentQuestion,
+  flipCard,
+  openQuizResults,
+} from '../actions';
 import { Foundation, Ionicons } from '@expo/vector-icons';
 import HeaderRightStatus from './HeaderRightStatus';
+import QuizResults from './QuizResults';
 
 class Quiz extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -67,7 +73,7 @@ class Quiz extends Component {
             paddingBottom: 7.5,
           }}
           onPress={() => {
-            this.setModalOpen(true);
+            this.props.openQuizResults();
           }}
         >
           <View
@@ -102,35 +108,16 @@ class Quiz extends Component {
         <Modal
           animationType="slide"
           transparent={false}
-          visible={this.state.modalOpen}
+          visible={this.props.quizResultsOpen}
           onRequestClose={() => {}}
         >
-          <View style={{ marginTop: 22 }}>
-            <View>
-              {cardsInDeck.map((card, index) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.props.setCurrentQuestion(index + 1);
-                      this.flatListRef.scrollToIndex({ index });
-                      this.setModalOpen(!this.state.modalOpen);
-                    }}
-                    key={index}
-                  >
-                    <Text>{`Card ${index + 1}`}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-
-              <TouchableOpacity
-                onPress={() => {
-                  this.setModalOpen(!this.state.modalOpen);
-                }}
-              >
-                <Text>Hide Modal</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <QuizResults
+            cardsInDeck={cardsInDeck}
+            numberCorrect={
+              cardsInDeck.filter(card => card.answerStatus === 'correct').length
+            }
+            deck={deck}
+          />
         </Modal>
         <View>
           <Button
@@ -185,6 +172,7 @@ const mapStateToProps = ({ quiz, decks, cards }, { navigation }) => {
     cardsInDeck: cards[deckId],
     currentQuestion: quiz.currentQuestion,
     currentCard: cards[deckId][quiz.currentQuestion - 1],
+    quizResultsOpen: quiz.quizResultsOpen,
   };
 };
 
@@ -193,6 +181,7 @@ const mapDispatchToProps = dispatch => ({
   flipCard: (deckId, cardId) => dispatch(flipCard(deckId, cardId)),
   changeAnswerStatus: (status, deckId, cardId) =>
     dispatch(changeAnswerStatus(status, deckId, cardId)),
+  openQuizResults: () => dispatch(openQuizResults()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

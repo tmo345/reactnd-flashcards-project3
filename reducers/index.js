@@ -5,6 +5,8 @@ import {
   RESET_CARDS_IN_DECK_TO_QUESTION,
   ADD_NEW_DECK,
   ADD_NEW_CARD,
+  OPEN_QUIZ_RESULTS,
+  CLOSE_QUIZ_RESULTS,
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -66,6 +68,7 @@ const initialCardState = {
 
 const initialQuizState = {
   currentQuestion: 1,
+  quizResultsOpen: false,
 };
 
 const cards = (state = initialCardState, action) => {
@@ -170,7 +173,20 @@ const quiz = (state = initialQuizState, action) => {
   switch (action.type) {
     case SET_CURRENT_QUESTION:
       return {
+        ...state,
         currentQuestion: action.position,
+      };
+
+    case OPEN_QUIZ_RESULTS:
+      return {
+        ...state,
+        quizResultsOpen: true,
+      };
+
+    case CLOSE_QUIZ_RESULTS:
+      return {
+        ...state,
+        quizResultsOpen: false,
       };
 
     default:
