@@ -3,6 +3,7 @@ import {
   SET_CURRENT_QUESTION,
   FLIP_CARD,
   RESET_CARDS_IN_DECK_TO_QUESTION,
+  RESET_CARDS_TO_UNANSWERED,
   ADD_NEW_DECK,
   ADD_NEW_CARD,
   OPEN_QUIZ_RESULTS,
@@ -143,6 +144,20 @@ const cards = (state = initialCardState, action) => {
           ...state[deckId],
           { id, deckId, question, answer, answerStatus, onQuestionSide },
         ],
+      };
+    }
+
+    case RESET_CARDS_TO_UNANSWERED: {
+      const { deckId } = action;
+      console.log(action);
+      return {
+        ...state,
+        [deckId]: state[deckId].map(card => {
+          return {
+            ...card,
+            answerStatus: 'unanswered',
+          };
+        }),
       };
     }
 

@@ -7,6 +7,7 @@ export const RESET_CARDS_IN_DECK_TO_QUESTION =
   'RESET_CARDS_IN_DECK_TO_QUESTION';
 export const ADD_NEW_DECK = 'ADD_NEW_DECK';
 export const ADD_NEW_CARD = 'ADD_NEW_CARD';
+export const RESET_CARDS_TO_UNANSWERED = 'RESET_CARDS_TO_UNANSWERED';
 export const OPEN_QUIZ_RESULTS = 'OPEN_QUIZ_RESULTS';
 export const CLOSE_QUIZ_RESULTS = 'CLOSE_QUIZ_RESULTS';
 
@@ -61,4 +62,9 @@ export const openQuizResults = () => ({
 
 export const closeQuizResults = () => ({
   type: CLOSE_QUIZ_RESULTS,
+});
+
+export const resetCardsToUnanswered = deckId => ({
+  type: RESET_CARDS_TO_UNANSWERED,
+  deckId,
 });
