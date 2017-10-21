@@ -44,18 +44,12 @@ class NewDeck extends Component {
        * onPress
        * https://stackoverflow.com/questions/29685421/react-native-hide-keyboard
        */
-      <KeyboardAvoidingView
-        behavior="position"
-        keyboardVerticalOffset={-80}
-        style={styles.inputContainer}
-      >
-        <ScrollView scrollEnabled={false}>
-          {displayFormSuccessMessage && (
-            <FormSuccessMessage
-              submittedItem="Deck"
-              dismissFormSuccessMessage={this.dismissFormSuccessMessage}
-            />
-          )}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior="position"
+          keyboardVerticalOffset={-80}
+          style={styles.inputContainer}
+        >
           <Text style={styles.formText}>
             What is the title of your new deck?
           </Text>
@@ -71,15 +65,17 @@ class NewDeck extends Component {
             onFocus={this.onDeckTitleFocus}
             onBlur={this.onDeckTitleBlur}
           />
-          <Button
-            style={styles.submitButton}
-            disabled={deckTitle.length === 0}
-            onPress={this.submitNewDeck}
-            title="Add Deck"
-            color="#2884CB"
-          />
-        </ScrollView>
-      </KeyboardAvoidingView>
+          <View>
+            <Button
+              style={styles.submitButton}
+              disabled={deckTitle.length === 0}
+              onPress={this.submitNewDeck}
+              title="Add Deck"
+              color="#2884CB"
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     );
   }
 }

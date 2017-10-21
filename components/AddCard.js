@@ -68,48 +68,55 @@ class AddCard extends Component {
        */
       <KeyboardAvoidingView
         behavior="position"
-        keyboardVerticalOffset={-50}
+        keyboardVerticalOffset={displayFormSuccessMessage ? -30 : -50}
         style={styles.inputContainer}
       >
-        {displayFormSuccessMessage && (
-          <FormSuccessMessage
-            submittedItem="Card"
-            dismissFormSuccessMessage={this.dismissFormSuccessMessage}
-          />
-        )}
-        <Text style={styles.heading}>New Flashcard</Text>
-        <Text style={styles.formText}>Question</Text>
-        <TextInput
-          value={this.state.question}
-          onChangeText={this.onQuestionChange}
-          onFocus={this.onQuestionFocus}
-          onBlur={this.onQuestionBlur}
-          //multiline={true}
-          style={[
-            styles.textInput,
-            this.state.questionFocused && styles.focusedStyle,
-          ]}
-        />
-        <Text style={styles.formText}>Answer</Text>
-        <TextInput
-          value={this.state.answer}
-          onChangeText={this.onAnswerChange}
-          onFocus={this.onAnswerFocus}
-          onBlur={this.onAnswerBlur}
-          //multiline={true}
-          style={[
-            styles.textInput,
-            this.state.answerFocused && styles.focusedStyle,
-          ]}
-        />
+        <TouchableWithoutFeedback
+          style={{ flex: 1 }}
+          onPress={Keyboard.dismiss}
+        >
+          <View>
+            {displayFormSuccessMessage && (
+              <FormSuccessMessage
+                submittedItem="Card"
+                dismissFormSuccessMessage={this.dismissFormSuccessMessage}
+              />
+            )}
+            <Text style={styles.heading}>New Flashcard</Text>
+            <Text style={styles.formText}>Question</Text>
+            <TextInput
+              value={this.state.question}
+              onChangeText={this.onQuestionChange}
+              onFocus={this.onQuestionFocus}
+              onBlur={this.onQuestionBlur}
+              //multiline={true}
+              style={[
+                styles.textInput,
+                this.state.questionFocused && styles.focusedStyle,
+              ]}
+            />
+            <Text style={styles.formText}>Answer</Text>
+            <TextInput
+              value={this.state.answer}
+              onChangeText={this.onAnswerChange}
+              onFocus={this.onAnswerFocus}
+              onBlur={this.onAnswerBlur}
+              //multiline={true}
+              style={[
+                styles.textInput,
+                this.state.answerFocused && styles.focusedStyle,
+              ]}
+            />
 
-        <Button
-          style={styles.submitButton}
-          disabled={question.length === 0 || answer.length === 0}
-          onPress={this.submitAddCard}
-          title="Add Card"
-          color="#2884CB"
-        />
+            <Button
+              style={styles.submitButton}
+              disabled={question.length === 0 || answer.length === 0}
+              onPress={this.submitAddCard}
+              title="Add Card"
+              color="#2884CB"
+            />
+          </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     );
   }
