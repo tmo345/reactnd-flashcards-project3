@@ -11,13 +11,15 @@ import {
 
 class QuizResults extends Component {
   resetQuiz = () => {
-    const { dispatch, navigation, deck } = this.props;
-    const { id, name } = deck;
+    const { deck: { id }, dispatch } = this.props;
     dispatch(resetCardsToUnanswered(id));
     dispatch(resetCardsInDeckToQuestion(id));
     dispatch(closeQuizResults());
     dispatch(setCurrentQuestion(1));
+  };
 
+  navigateToNewQuiz = () => {
+    const { deck: { id, name }, navigation, dispatch } = this.props;
     const resetAction = NavigationActions.reset({
       index: 2,
       actions: [
@@ -26,15 +28,20 @@ class QuizResults extends Component {
         }),
         NavigationActions.navigate({
           routeName: 'Deck',
-          params: { name: deck.name, deckId: deck.id },
+          params: { name: name, deckId: id },
         }),
         NavigationActions.navigate({
           routeName: 'Quiz',
-          params: { name: deck.name, deckId: deck.id },
+          params: { name: name, deckId: id },
         }),
       ],
     });
     navigation.dispatch(resetAction);
+  };
+
+  retakeQuiz = () => {
+    this.resetQuiz();
+    this.navigateToNewQuiz();
   };
 
   backToDeck = () => {
@@ -69,7 +76,7 @@ class QuizResults extends Component {
           </Text>
         </View>
         <View>
-          <Button title="Take Quiz Again" onPress={this.resetQuiz} />
+          <Button title="Take Quiz Again" onPress={this.retakeQuiz} />
           <Button
             title={`Back to ${deck.name} deck`}
             onPress={this.backToDeck}
