@@ -90,12 +90,6 @@ class NewDeck extends Component {
 export default connect()(NewDeck);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
   textInput: {
     alignSelf: 'stretch',
     borderColor: '#ccc',
@@ -112,17 +106,14 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     paddingTop: 80,
     paddingBottom: 10,
     padding: 20,
     backgroundColor: '#fff',
   },
-  submitButton: {},
-  submitButtonText: {
-    color: '#fff',
-  },
+  submitButton: { flex: 1 },
   focusedStyle: {
     borderColor: '#84ACCB',
     shadowRadius: 3,

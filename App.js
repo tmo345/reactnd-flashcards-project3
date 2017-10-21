@@ -52,6 +52,7 @@ const Tabs = TabNavigator(
             height: 50,
             justifyContent: 'center',
             alignItems: 'flex-start',
+            backgroundColor: '#2A7F40',
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, paddingLeft: 20 }}>
@@ -62,11 +63,14 @@ const Tabs = TabNavigator(
     },
     tabBarOptions: {
       activeTintColor: '#fff',
-      inactiveTintColor: Platform.OS === 'ios' ? '#222' : '#000',
+      inactiveTintColor: '#222',
+      activeBackgroundColor: '#2A7F40',
       inactiveBackgroundColor: '#ddd',
-      activeBackgroundColor: 'gray',
+      labelStyle: {
+        fontSize: 14,
+      },
       style: {
-        height: 56,
+        height: 64,
         backgroundColor: 'gray',
       },
     },
