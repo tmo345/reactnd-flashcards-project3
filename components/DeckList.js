@@ -38,7 +38,7 @@ class DeckList extends Component {
                   onPress={() =>
                     this.props.navigation.navigate('Deck', {
                       deckId: id,
-                      name,
+                      title: name,
                     })}
                 >
                   <Text>{name}</Text>

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.name,
+      title: navigation.state.params.title,
     };
   };
   render() {
