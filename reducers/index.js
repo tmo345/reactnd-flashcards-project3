@@ -179,25 +179,23 @@ const cards = (state = {}, action) => {
 const decks = (state = {}, action) => {
   switch (action.type) {
     case ADD_NEW_DECK: {
-      const { id, name } = action;
+      const { id, title } = action;
       return {
         ...state,
         [id]: {
           id,
-          name,
+          title,
         },
       };
     }
 
     case HYDRATE_DECKS: {
-      console.log(action);
       const deckIds = Object.keys(action.asyncResults);
       return deckIds.reduce((deckState, deckId) => {
         deckState[deckId] = {
           id: deckId,
           name: action.asyncResults[deckId]['title'],
         };
-        console.log(deckState);
         return deckState;
       }, {});
     }

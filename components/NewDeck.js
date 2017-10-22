@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { addNewDeck } from '../actions';
+import { setNewDeck } from '../actions';
 import FormSuccessMessage from './FormSuccessMessage';
 import { NavigationActions } from 'react-navigation';
 
@@ -24,16 +24,16 @@ class NewDeck extends Component {
     deckTitleFocused: false,
   };
 
-  submitNewDeck = text => {
-    const newDeckAction = addNewDeck(this.state.deckTitle);
-    this.props.dispatch(newDeckAction);
-    const navigationAction = NavigationActions.navigate({
-      routeName: 'Deck',
-      params: { deckId: newDeckAction.id, name: newDeckAction.name },
-    });
+  submitNewDeck = () => {
+    this.props.dispatch(setNewDeck(this.state.deckTitle)).then(id => {
+      const navigationAction = NavigationActions.navigate({
+        routeName: 'Deck',
+        params: { deckId: id, title: this.state.deckTitle },
+      });
 
-    this.setState({ deckTitle: '' });
-    this.props.navigation.dispatch(navigationAction);
+      this.setState({ deckTitle: '' });
+      this.props.navigation.dispatch(navigationAction);
+    });
   };
 
   onDeckTitleFocus = () => this.setState({ deckTitleFocused: true });

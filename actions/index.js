@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import { getDecks } from '../utils/api';
+import { getDecks, saveDeckTitle } from '../utils/api';
 
 export const CHANGE_ANSWER_STATUS = 'CHANGE_ANSWER_STATUS';
 export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
@@ -37,12 +37,21 @@ export const resetCardsInDeckToQuestion = deckId => ({
   deckId,
 });
 
-export const addNewDeck = name => {
-  const id = uuidv4();
+export const addNewDeck = (title, id) => {
   return {
     type: ADD_NEW_DECK,
-    name,
+    title,
     id,
+  };
+};
+
+export const setNewDeck = title => {
+  const id = uuidv4();
+  return function(dispatch) {
+    return saveDeckTitle(title, id).then(results => {
+      dispatch(addNewDeck(title, id));
+      return id;
+    });
   };
 };
 
