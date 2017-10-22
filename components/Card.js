@@ -67,6 +67,7 @@ class Card extends Component {
           >
             <View>{this.renderAnswerStatusIcon(answerStatus)}</View>
           </View>
+          <Text>{onQuestionSide ? 'Question: ' : 'Answer'}</Text>
           <Text style={styles.cardText}>
             {onQuestionSide ? question : answer}
           </Text>
