@@ -8,9 +8,17 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  AsyncStorage,
 } from 'react-native';
+import { getDecks } from '../utils/api';
+import { fetchAllDecks } from '../actions';
 
 class DeckList extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchAllDecks());
+    // TODO: Remove commented out AsynStorage.clear(), which was used for testing app
+    //AsyncStorage.clear();
+  }
   render() {
     const { decks, cards } = this.props;
     const deckIds = Object.keys(decks);

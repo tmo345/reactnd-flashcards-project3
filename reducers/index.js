@@ -8,6 +8,7 @@ import {
   ADD_NEW_CARD,
   OPEN_QUIZ_RESULTS,
   CLOSE_QUIZ_RESULTS,
+  HYDRATE_DECKS,
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -72,7 +73,7 @@ const initialQuizState = {
   quizResultsOpen: false,
 };
 
-const cards = (state = initialCardState, action) => {
+const cards = (state = {}, action) => {
   switch (action.type) {
     case CHANGE_ANSWER_STATUS: {
       const { status, deckId, cardId } = action;
@@ -161,12 +162,21 @@ const cards = (state = initialCardState, action) => {
       };
     }
 
+    case HYDRATE_DECKS: {
+      const { asyncResults } = action;
+      const deckIds = Object.keys(asyncResults);
+      return deckIds.reduce((cardState, deckId) => {
+        cardState[deckId] = asyncResults[deckId]['questions'];
+        return cardState;
+      }, {});
+    }
+
     default:
       return state;
   }
 };
 
-const decks = (state = initialDeckState, action) => {
+const decks = (state = {}, action) => {
   switch (action.type) {
     case ADD_NEW_DECK: {
       const { id, name } = action;
@@ -177,6 +187,19 @@ const decks = (state = initialDeckState, action) => {
           name,
         },
       };
+    }
+
+    case HYDRATE_DECKS: {
+      console.log(action);
+      const deckIds = Object.keys(action.asyncResults);
+      return deckIds.reduce((deckState, deckId) => {
+        deckState[deckId] = {
+          id: deckId,
+          name: action.asyncResults[deckId]['title'],
+        };
+        console.log(deckState);
+        return deckState;
+      }, {});
     }
 
     default:
