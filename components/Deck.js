@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 import AddCard from './AddCard';
 import { connect } from 'react-redux';
-import { resetCardsInDeckToQuestion } from '../actions';
+import { resetCardsInDeckToQuestion, setCurrentQuestion } from '../actions';
 import PropTypes from 'prop-types';
 
 class Deck extends Component {
@@ -35,6 +35,7 @@ class Deck extends Component {
               title="Start Quiz"
               onPress={() => {
                 this.props.resetCardsInDeckToQuestion(deck.id);
+                this.props.setCurrentQuestion(1);
                 this.props.navigation.navigate('Quiz', {
                   deckId: deck.id,
                   name: deck.name,
@@ -65,6 +66,7 @@ const mapStateToProps = ({ decks, cards }, { navigation }) => {
 const mapDispatchToProps = dispatch => ({
   resetCardsInDeckToQuestion: deckId =>
     dispatch(resetCardsInDeckToQuestion(deckId)),
+  setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Deck);
