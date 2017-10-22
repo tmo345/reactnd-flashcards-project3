@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-import { addNewCard } from '../actions';
+import { setNewCard } from '../actions';
 import FormSuccessMessage from './FormSuccessMessage';
 
 class AddCard extends Component {
@@ -32,13 +32,14 @@ class AddCard extends Component {
   submitAddCard = () => {
     const { deckId } = this.props.navigation.state.params;
     const { question, answer } = this.state;
-    this.props.dispatch(addNewCard(deckId, question, answer));
-    this.setState({
-      question: '',
-      answer: '',
-      displayFormSuccessMessage: true,
+    this.props.dispatch(setNewCard(deckId, question, answer)).then(() => {
+      this.setState({
+        question: '',
+        answer: '',
+        displayFormSuccessMessage: true,
+      });
+      Keyboard.dismiss();
     });
-    Keyboard.dismiss();
   };
 
   onQuestionFocus = () => {

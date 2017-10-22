@@ -133,12 +133,12 @@ const cards = (state = {}, action) => {
     case ADD_NEW_CARD: {
       const {
         id,
-        deckId,
         question,
         answer,
         answerStatus,
         onQuestionSide,
-      } = action;
+      } = action.card;
+      const { deckId } = action;
       return {
         ...state,
         [deckId]: [

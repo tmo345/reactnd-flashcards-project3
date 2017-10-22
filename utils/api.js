@@ -27,3 +27,21 @@ export const saveDeckTitle = (title, id) => {
     }),
   );
 };
+
+export const addCardToDeck = (deckId, card) => {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+    .then(JSON.parse)
+    .then(results => {
+      return results[deckId]['questions'].concat([card]);
+    })
+    .then(cardArray =>
+      AsyncStorage.mergeItem(
+        DECK_STORAGE_KEY,
+        JSON.stringify({
+          [deckId]: {
+            questions: cardArray,
+          },
+        }),
+      ),
+    );
+};
