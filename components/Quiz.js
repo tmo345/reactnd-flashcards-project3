@@ -21,7 +21,7 @@ import {
   flipCard,
   openQuizResults,
 } from '../actions';
-import { Foundation, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import HeaderRightStatus from './HeaderRightStatus';
 import QuizResults from './QuizResults';
 
@@ -119,14 +119,15 @@ class Quiz extends Component {
             deck={deck}
           />
         </Modal>
-        <View>
-          <Button
-            title="Flip Card"
-            onPress={() => {
-              this.props.flipCard(deck.id, currentCard.id);
-            }}
-          />
-        </View>
+        <TouchableOpacity
+          style={styles.flipButton}
+          onPress={() => {
+            this.props.flipCard(deck.id, currentCard.id);
+          }}
+        >
+          <MaterialCommunityIcons name="rotate-3d" size={30} />
+          <Text style={styles.flipButtonText}>Flip</Text>
+        </TouchableOpacity>
         <View style={styles.markAnswerStatus}>
           <TouchableOpacity
             style={[
@@ -193,6 +194,21 @@ const styles = StyleSheet.create({
   },
   nav: {
     flex: 1,
+  },
+  flipButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flipButton: {
+    flex: 0.25,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flipButtonText: {
+    fontSize: 22,
+    marginLeft: 7.5,
   },
   markAnswerStatus: {
     flexDirection: 'row',
