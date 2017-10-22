@@ -150,7 +150,6 @@ const cards = (state = {}, action) => {
 
     case RESET_CARDS_TO_UNANSWERED: {
       const { deckId } = action;
-      console.log(action);
       return {
         ...state,
         [deckId]: state[deckId].map(card => {
