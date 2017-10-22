@@ -120,6 +120,7 @@ const StackNav = StackNavigator(
           height: 50,
           paddingBottom: 15,
         },
+        gesturesEnabled: false,
       },
     },
   },
