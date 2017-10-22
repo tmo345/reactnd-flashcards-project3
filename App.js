@@ -13,6 +13,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import devToolsEnhancer from 'remote-redux-devtools';
+import { ScreenOrientation } from 'expo';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -130,6 +131,11 @@ const StackNav = StackNavigator(
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default class App extends React.Component {
+  componentWillMount() {
+    // Listed portrait in app.json, but want to force portrait for dev mode
+    // TODO: Would remove this before building app for production
+    ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT);
+  }
   render() {
     return (
       <Provider
