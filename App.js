@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import devToolsEnhancer from 'remote-redux-devtools';
 import { ScreenOrientation } from 'expo';
+import Reminders from './components/Reminders';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -42,6 +43,15 @@ const Tabs = TabNavigator(
         tabBarLabel: 'New Deck',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons name="ios-add" size={30} color={tintColor} />
+        ),
+      },
+    },
+    Reminders: {
+      screen: Reminders,
+      navigationOptions: {
+        topBarLabel: 'Reminders',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="ios-clock-outline" size={30} color={tintColor} />
         ),
       },
     },
