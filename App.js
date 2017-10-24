@@ -102,7 +102,7 @@ const StackNav = StackNavigator({
   Decks: {
     screen: Tabs,
     navigationOptions: {
-      headerBackTitle: 'Back',
+      headerBackTitle: 'Decks',
     },
   },
   Deck: {
@@ -115,7 +115,7 @@ const StackNav = StackNavigator({
         justifyContent: 'center',
         paddingBottom: 15,
       },
-      headerBackTitle: 'Back',
+      headerBackTitle: 'Deck',
     },
   },
   AddCard: {
@@ -131,6 +131,17 @@ const StackNav = StackNavigator({
   },
   Quiz: {
     screen: Quiz,
+    navigationOptions: {
+      headerTintColor: '#fff',
+      headerBackTitle: 'Quiz',
+      headerStyle: {
+        backgroundColor: 'gray',
+        height: 50,
+        paddingBottom: 15,
+      },
+      gesturesEnabled: false,
+    },
+  },
   QuizResults: {
     screen: QuizResults,
     navigationOptions: {
