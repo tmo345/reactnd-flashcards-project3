@@ -26,6 +26,11 @@ import {
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import HeaderRightStatus from './HeaderRightStatus';
 import QuizResults from './QuizResults';
+import {
+  setReminder,
+  timeFromNow,
+  DEFAULT_QUIZ_REMINDER,
+} from '../utils/helpers';
 
 class Quiz extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -38,7 +43,12 @@ class Quiz extends Component {
   };
 
   componentDidUpdate() {
-    this.checkForQuizComplete();
+    if (this.props.questionsAnswered === this.props.cardsInDeck.length) {
+      if (this.props.notificationsOn) {
+        this.delayQuizReminder();
+      }
+      this.navigateToQuizResults();
+    }
   }
 
   /**
@@ -78,20 +88,23 @@ class Quiz extends Component {
     }
   };
 
-  checkForQuizComplete = () => {
-    if (this.props.questionsAnswered === this.props.cardsInDeck.length) {
-      const navigateAction = NavigationActions.navigate({
-        routeName: 'QuizResults',
-        params: {
-          cardsInDeck: this.props.cardsInDeck,
-          deck: this.props.deck,
-          numberCorrect: this.props.cardsInDeck.filter(
-            card => card.answeredCategory === 'correct',
-          ).length,
-        },
-      });
-      this.props.navigation.dispatch(navigateAction);
-    }
+  delayQuizReminder = () => {
+    const time = timeFromNow(1, 20, 0, 0);
+    setReminder(DEFAULT_QUIZ_REMINDER, time, 'day');
+  };
+
+  navigateToQuizResults = () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'QuizResults',
+      params: {
+        cardsInDeck: this.props.cardsInDeck,
+        deck: this.props.deck,
+        numberCorrect: this.props.cardsInDeck.filter(
+          card => card.answeredCategory === 'correct',
+        ).length,
+      },
+    });
+    this.props.navigation.dispatch(navigateAction);
   };
 
   render() {
@@ -198,7 +211,10 @@ class Quiz extends Component {
   }
 }
 
-const mapStateToProps = ({ quiz, decks, cards }, { navigation }) => {
+const mapStateToProps = (
+  { quiz, decks, cards, notifications },
+  { navigation },
+) => {
   const { deckId } = navigation.state.params;
   return {
     deck: decks[deckId],
@@ -207,6 +223,7 @@ const mapStateToProps = ({ quiz, decks, cards }, { navigation }) => {
     currentCard: cards[deckId][quiz.currentQuestion - 1],
     quizResultsOpen: quiz.quizResultsOpen,
     questionsAnswered: quiz.answered,
+    notificationsOn: notifications.notificationsOn,
   };
 };
 

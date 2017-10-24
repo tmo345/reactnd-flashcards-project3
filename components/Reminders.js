@@ -20,6 +20,11 @@ import {
   setNotificationTimeAsyncStorage,
   toggleNotificationsAsyncStorage,
 } from '../actions';
+import {
+  setReminder,
+  timeFromNow,
+  DEFAULT_QUIZ_REMINDER,
+} from '../utils/helpers';
 
 class Reminders extends Component {
   state = {
@@ -54,31 +59,8 @@ class Reminders extends Component {
   };
 
   setLocalNotification = () => {
-    Notifications.cancelAllScheduledNotificationsAsync();
-
-    let tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(2000);
-    tomorrow.setMinutes(0);
-
-    const notification = {
-      title: 'Have you taken a quiz today?',
-      body: 'Practice some more by taking another quiz!',
-      android: {
-        sound: true,
-      },
-      ios: {
-        sound: true,
-        priority: 'high',
-        sticky: false,
-        vibrate: true,
-      },
-    };
-
-    Notifications.scheduleLocalNotificationAsync(notification, {
-      time: new Date(tomorrow),
-      repeat: 'day',
-    });
+    const time = timeFromNow(1, 20, 0, 0);
+    setReminder(DEFAULT_QUIZ_REMINDER, time, 'day');
   };
 
   clearNotifications() {
@@ -139,8 +121,8 @@ class Reminders extends Component {
           </Text>
         </View>
         <Text>
-          Turn on to receive a reminder at 8PM every day to make sure you've
-          practiced with a quiz that day.
+          Turn on to receive a reminder at 8PM every day if you haven't
+          completed a quiz that day.
         </Text>
       </View>
     );
