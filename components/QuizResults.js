@@ -11,8 +11,17 @@ import {
 } from '../actions';
 
 class QuizResults extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { deck } = navigation.state.params;
+    return {
+      headerLeft: null,
+      title: 'Results',
+    };
+  };
+
   resetQuiz = () => {
-    const { deck: { id }, dispatch } = this.props;
+    const { dispatch } = this.props;
+    const { deck: { id } } = this.props.navigation.state.params;
     dispatch(resetQuestionsAnswered());
     dispatch(resetCardsToUnanswered(id));
     dispatch(resetCardsInDeckToQuestion(id));
@@ -21,7 +30,8 @@ class QuizResults extends Component {
   };
 
   navigateToNewQuiz = () => {
-    const { deck: { id, name }, navigation, dispatch } = this.props;
+    const { navigation } = this.props;
+    const { deck: { id, name } } = navigation.state.params;
     const resetAction = NavigationActions.reset({
       index: 2,
       actions: [
@@ -47,7 +57,8 @@ class QuizResults extends Component {
   };
 
   backToDeck = () => {
-    const { deck, navigation, dispatch } = this.props;
+    const { navigation } = this.props;
+    const { deck } = navigation.state.params;
     this.resetQuiz();
     const resetAction = NavigationActions.reset({
       index: 1,
@@ -65,7 +76,13 @@ class QuizResults extends Component {
   };
 
   render() {
-    const { cardsInDeck, numberCorrect, deck, dispatch } = this.props;
+    console.log(this.props);
+    const {
+      cardsInDeck,
+      numberCorrect,
+      deck,
+      dispatch,
+    } = this.props.navigation.state.params;
     return (
       <View style={{ marginTop: 22 }}>
         <View>

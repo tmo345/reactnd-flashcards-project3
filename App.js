@@ -13,6 +13,7 @@ import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
+import QuizResults from './components/QuizResults';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
@@ -130,6 +131,8 @@ const StackNav = StackNavigator({
   },
   Quiz: {
     screen: Quiz,
+  QuizResults: {
+    screen: QuizResults,
     navigationOptions: {
       headerTintColor: '#fff',
       headerStyle: {

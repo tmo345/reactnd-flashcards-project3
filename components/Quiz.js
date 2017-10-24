@@ -12,7 +12,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Card from './Card';
-import { DrawerNavigator, DrawerItems } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
 import { connect } from 'react-redux';
 import {
@@ -80,7 +80,17 @@ class Quiz extends Component {
 
   checkForQuizComplete = () => {
     if (this.props.questionsAnswered === this.props.cardsInDeck.length) {
-      this.props.openQuizResults();
+      const navigateAction = NavigationActions.navigate({
+        routeName: 'QuizResults',
+        params: {
+          cardsInDeck: this.props.cardsInDeck,
+          deck: this.props.deck,
+          numberCorrect: this.props.cardsInDeck.filter(
+            card => card.answeredCategory === 'correct',
+          ).length,
+        },
+      });
+      this.props.navigation.dispatch(navigateAction);
     }
   };
 
