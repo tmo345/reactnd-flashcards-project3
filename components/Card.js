@@ -12,15 +12,15 @@ import { NavigationActions } from 'react-navigation';
 import { Foundation, Ionicons } from '@expo/vector-icons';
 
 class Card extends Component {
-  renderAnswerStatusIcon = answerStatus => {
+  renderAnswerStatusIcon = answeredCategory => {
     let iconName;
     let color;
     let message;
-    if (answerStatus === 'correct') {
+    if (answeredCategory === 'correct') {
       iconName = 'ios-checkmark';
       color = 'green';
       message = 'Correct';
-    } else if (answerStatus === 'incorrect') {
+    } else if (answeredCategory === 'incorrect') {
       iconName = 'ios-close';
       color = 'red';
       message = 'Incorrect';
@@ -47,7 +47,7 @@ class Card extends Component {
       question,
       answer,
       onQuestionSide,
-      answerStatus,
+      answeredCategory,
       deckId,
       id,
     } = this.props.card;
@@ -65,7 +65,7 @@ class Card extends Component {
               flexDirection: 'row',
             }}
           >
-            <View>{this.renderAnswerStatusIcon(answerStatus)}</View>
+            <View>{this.renderAnswerStatusIcon(answeredCategory)}</View>
           </View>
           <Text>{onQuestionSide ? 'Question: ' : 'Answer'}</Text>
           <Text style={styles.cardText}>

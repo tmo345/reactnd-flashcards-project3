@@ -8,7 +8,7 @@ import {
   setNotificationTimeAsync,
 } from '../utils/api';
 
-export const CHANGE_ANSWER_STATUS = 'CHANGE_ANSWER_STATUS';
+export const CHANGE_ANSWERED_CATEGORY = 'CHANGE_ANSWERED_CATEGORY';
 export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
 export const FLIP_CARD = 'FLIP_CARD';
 export const RESET_CARDS_IN_DECK_TO_QUESTION =
@@ -23,8 +23,9 @@ export const FETCH_ALL_DECKS = 'FETCH_ALL_DECKS';
 export const HYDRATE_NOTIFICATION_SETTINGS = 'HYDRATE_NOTIFICATION_SETTINGS';
 export const TOGGLE_NOTIFICATIONS = 'TOGGLE_NOTIFICATIONS';
 
-export const changeAnswerStatus = (status, deckId, cardId) => ({
-  type: CHANGE_ANSWER_STATUS,
+
+export const changeAnsweredCategory = (status, deckId, cardId) => ({
+  type: CHANGE_ANSWERED_CATEGORY,
   status,
   deckId,
   cardId,
@@ -80,7 +81,7 @@ export const setNewCard = (deckId, question, answer) => {
     deckId,
     question,
     answer,
-    answerStatus: null,
+    answeredCategory: 'unanswered',
     onQuestionSide: true,
   };
   return function(dispatch) {

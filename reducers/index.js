@@ -1,5 +1,5 @@
 import {
-  CHANGE_ANSWER_STATUS,
+  CHANGE_ANSWERED_CATEGORY,
   SET_CURRENT_QUESTION,
   FLIP_CARD,
   RESET_CARDS_IN_DECK_TO_QUESTION,
@@ -42,7 +42,7 @@ const notifications = (state = initialNotificationState, action) => {
 
 const cards = (state = {}, action) => {
   switch (action.type) {
-    case CHANGE_ANSWER_STATUS: {
+    case CHANGE_ANSWERED_CATEGORY: {
       const { status, deckId, cardId } = action;
       return {
         ...state,
@@ -50,7 +50,7 @@ const cards = (state = {}, action) => {
           if (card.id === cardId) {
             return {
               ...card,
-              answerStatus: status,
+              answeredCategory: status,
             };
           } else {
             return card;
@@ -122,7 +122,7 @@ const cards = (state = {}, action) => {
         [deckId]: state[deckId].map(card => {
           return {
             ...card,
-            answerStatus: 'unanswered',
+            answeredCategory: 'unanswered',
           };
         }),
       };

@@ -16,7 +16,7 @@ import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import QuizCardDrawer from './QuizCardDrawer';
 import { connect } from 'react-redux';
 import {
-  changeAnswerStatus,
+  changeAnsweredCategory,
   setCurrentQuestion,
   flipCard,
   openQuizResults,
@@ -135,7 +135,11 @@ class Quiz extends Component {
               { backgroundColor: '#2E882E' },
             ]}
             onPress={() => {
-              this.props.changeAnswerStatus('correct', deck.id, currentCard.id);
+              this.props.changeAnsweredCategory(
+                'correct',
+                deck.id,
+                currentCard.id,
+              );
             }}
           >
             <Ionicons
@@ -151,7 +155,7 @@ class Quiz extends Component {
               { backgroundColor: '#AA3939' },
             ]}
             onPress={() =>
-              this.props.changeAnswerStatus(
+              this.props.changeAnsweredCategory(
                 'incorrect',
                 deck.id,
                 currentCard.id,
@@ -180,8 +184,8 @@ const mapStateToProps = ({ quiz, decks, cards }, { navigation }) => {
 const mapDispatchToProps = dispatch => ({
   setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
   flipCard: (deckId, cardId) => dispatch(flipCard(deckId, cardId)),
-  changeAnswerStatus: (status, deckId, cardId) =>
-    dispatch(changeAnswerStatus(status, deckId, cardId)),
+  changeAnsweredCategory: (status, deckId, cardId) =>
+    dispatch(changeAnsweredCategory(status, deckId, cardId)),
   openQuizResults: () => dispatch(openQuizResults()),
 });
 
