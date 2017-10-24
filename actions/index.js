@@ -57,7 +57,7 @@ export const addNewDeck = (title, id) => {
 export const setNewDeck = title => {
   const id = uuidv4();
   return function(dispatch) {
-    return saveDeckTitle(title, id).then(results => {
+    return saveDeckTitle(title, id).then(() => {
       dispatch(addNewDeck(title, id));
       return id;
     });

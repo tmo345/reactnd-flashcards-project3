@@ -39,9 +39,6 @@ class NewDeck extends Component {
   onDeckTitleFocus = () => this.setState({ deckTitleFocused: true });
   onDeckTitleBlur = () => this.setState({ deckTitleFocused: false });
 
-  //dismissFormSuccessMessage = () =>
-  //this.setState({ displayFormSuccessMessage: false });
-
   render() {
     const { deckTitle, displayFormSuccessMessage } = this.state;
     return (

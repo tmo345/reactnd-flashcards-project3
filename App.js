@@ -1,5 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
+import {
+  AsyncStorage,
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  Platform,
+  Alert,
+} from 'react-native';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
@@ -13,8 +21,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import devToolsEnhancer from 'remote-redux-devtools';
-import { ScreenOrientation } from 'expo';
 import Reminders from './components/Reminders';
+import { ScreenOrientation } from 'expo';
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -89,55 +97,50 @@ const Tabs = TabNavigator(
   },
 );
 
-const StackNav = StackNavigator(
-  {
-    Decks: {
-      screen: Tabs,
-      navigationOptions: {
-        headerBackTitle: 'Back',
-      },
+const StackNav = StackNavigator({
+  Decks: {
+    screen: Tabs,
+    navigationOptions: {
+      headerBackTitle: 'Back',
     },
-    Deck: {
-      screen: Deck,
-      navigationOptions: {
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: 'gray',
-          height: 50,
-          justifyContent: 'center',
-          paddingBottom: 15,
-        },
-        headerBackTitle: 'Back',
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: 'gray',
+        height: 50,
+        justifyContent: 'center',
+        paddingBottom: 15,
       },
+      headerBackTitle: 'Back',
     },
-    AddCard: {
-      screen: AddCard,
-      navigationOptions: {
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: 'gray',
-          height: 50,
-          paddingBottom: 15,
-        },
-      },
-    },
-    Quiz: {
-      screen: Quiz,
-      navigationOptions: {
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: 'gray',
-          height: 50,
-          paddingBottom: 15,
-        },
-        gesturesEnabled: false,
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: 'gray',
+        height: 50,
+        paddingBottom: 15,
       },
     },
   },
-  {
-    //headerMode: 'float',
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: 'gray',
+        height: 50,
+        paddingBottom: 15,
+      },
+      gesturesEnabled: false,
+    },
   },
-);
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -147,6 +150,7 @@ export default class App extends React.Component {
     // TODO: Would remove this before building app for production
     ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT);
   }
+
   render() {
     return (
       <Provider
