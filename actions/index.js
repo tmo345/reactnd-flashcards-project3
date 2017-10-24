@@ -22,11 +22,30 @@ export const HYDRATE_DECKS = 'HYDRATE_DECKS';
 export const FETCH_ALL_DECKS = 'FETCH_ALL_DECKS';
 export const HYDRATE_NOTIFICATION_SETTINGS = 'HYDRATE_NOTIFICATION_SETTINGS';
 export const TOGGLE_NOTIFICATIONS = 'TOGGLE_NOTIFICATIONS';
+export const INCREMENT_QUESTIONS_ANSWERED = 'INCREMENT_QUESTIONS_ANSWERED';
+export const RESET_QUESTIONS_ANSWERED = 'RESET_QUESTIONS_ANSWERED';
+export const TOGGLE_CARD_ANSWERED = 'TOGGLE_CARD_ANSWERED';
 
+export const incrementQuestionsAnswered = () => {
+  console.log('sending increment action');
+  return {
+    type: INCREMENT_QUESTIONS_ANSWERED,
+  };
+};
+
+export const resetQuestionsAnswered = () => ({
+  type: RESET_QUESTIONS_ANSWERED,
+});
 
 export const changeAnsweredCategory = (status, deckId, cardId) => ({
   type: CHANGE_ANSWERED_CATEGORY,
   status,
+  deckId,
+  cardId,
+});
+
+export const toggleCardAnswered = (deckId, cardId) => ({
+  type: TOGGLE_CARD_ANSWERED,
   deckId,
   cardId,
 });
@@ -83,6 +102,7 @@ export const setNewCard = (deckId, question, answer) => {
     answer,
     answeredCategory: 'unanswered',
     onQuestionSide: true,
+    answered: false,
   };
   return function(dispatch) {
     return addCardToDeck(deckId, newCard).then(

@@ -4,6 +4,7 @@ import {
   FLIP_CARD,
   RESET_CARDS_IN_DECK_TO_QUESTION,
   RESET_CARDS_TO_UNANSWERED,
+  TOGGLE_CARD_ANSWERED,
   ADD_NEW_DECK,
   ADD_NEW_CARD,
   OPEN_QUIZ_RESULTS,
@@ -11,12 +12,15 @@ import {
   HYDRATE_DECKS,
   HYDRATE_NOTIFICATION_SETTINGS,
   TOGGLE_NOTIFICATIONS,
+  INCREMENT_QUESTIONS_ANSWERED,
+  RESET_QUESTIONS_ANSWERED,
 } from '../actions';
 import { combineReducers } from 'redux';
 
 const initialQuizState = {
   currentQuestion: 1,
   quizResultsOpen: false,
+  answered: 0,
 };
 
 const initialNotificationState = {
@@ -128,6 +132,23 @@ const cards = (state = {}, action) => {
       };
     }
 
+    case TOGGLE_CARD_ANSWERED: {
+      const { deckId, cardId } = action;
+      return {
+        ...state,
+        [deckId]: state[deckId].map(card => {
+          if (card.id === cardId) {
+            return {
+              ...card,
+              answered: !card.answered,
+            };
+          } else {
+            return card;
+          }
+        }),
+      };
+    }
+
     case HYDRATE_DECKS: {
       const { asyncResults } = action;
       const deckIds = Object.keys(asyncResults);
@@ -190,6 +211,19 @@ const quiz = (state = initialQuizState, action) => {
       return {
         ...state,
         quizResultsOpen: false,
+      };
+
+    case INCREMENT_QUESTIONS_ANSWERED:
+      console.log('incrementing now');
+      return {
+        ...state,
+        answered: state.answered + 1,
+      };
+
+    case RESET_QUESTIONS_ANSWERED:
+      return {
+        ...state,
+        answered: 0,
       };
 
     default:

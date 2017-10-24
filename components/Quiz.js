@@ -20,6 +20,8 @@ import {
   setCurrentQuestion,
   flipCard,
   openQuizResults,
+  toggleCardAnswered,
+  incrementQuestionsAnswered,
 } from '../actions';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import HeaderRightStatus from './HeaderRightStatus';
@@ -34,6 +36,10 @@ class Quiz extends Component {
       ),
     };
   };
+
+  componentDidUpdate() {
+    this.checkForQuizComplete();
+  }
 
   /**
    * Based on the response of A. Goodale at https://stackoverflow.com/a/43372523
@@ -53,6 +59,31 @@ class Quiz extends Component {
       Math.floor(contentOffset.x / layoutMeasurement.width) + 1;
     this.props.setCurrentQuestion(currentCard);
   };
+
+  markQuestionCorrectness = correctness => {
+    this.props.changeAnsweredCategory(
+      correctness,
+      this.props.deck.id,
+      this.props.currentCard.id,
+    );
+  };
+
+  handleAnswerTracking = () => {
+    if (!this.props.currentCard.answered) {
+      this.props.toggleCardAnswered(
+        this.props.deck.id,
+        this.props.currentCard.id,
+      );
+      this.props.incrementQuestionsAnswered();
+    }
+  };
+
+  checkForQuizComplete = () => {
+    if (this.props.questionsAnswered === this.props.cardsInDeck.length) {
+      this.props.openQuizResults();
+    }
+  };
+
   render() {
     const { deck, cardsInDeck, currentQuestion, currentCard } = this.props;
 
@@ -127,11 +158,8 @@ class Quiz extends Component {
               { backgroundColor: '#2E882E' },
             ]}
             onPress={() => {
-              this.props.changeAnsweredCategory(
-                'correct',
-                deck.id,
-                currentCard.id,
-              );
+              this.markQuestionCorrectness('correct');
+              this.handleAnswerTracking();
             }}
           >
             <Ionicons
@@ -146,12 +174,10 @@ class Quiz extends Component {
               styles.markAnswerStatusButtons,
               { backgroundColor: '#AA3939' },
             ]}
-            onPress={() =>
-              this.props.changeAnsweredCategory(
-                'incorrect',
-                deck.id,
-                currentCard.id,
-              )}
+            onPress={() => {
+              this.markQuestionCorrectness('incorrect');
+              this.handleAnswerTracking();
+            }}
           >
             <Ionicons name="ios-close-circle-outline" color="white" size={30} />
             <Text style={styles.markAnswerText}>Mark Incorrect</Text>
@@ -170,6 +196,7 @@ const mapStateToProps = ({ quiz, decks, cards }, { navigation }) => {
     currentQuestion: quiz.currentQuestion,
     currentCard: cards[deckId][quiz.currentQuestion - 1],
     quizResultsOpen: quiz.quizResultsOpen,
+    questionsAnswered: quiz.answered,
   };
 };
 
@@ -179,6 +206,9 @@ const mapDispatchToProps = dispatch => ({
   changeAnsweredCategory: (status, deckId, cardId) =>
     dispatch(changeAnsweredCategory(status, deckId, cardId)),
   openQuizResults: () => dispatch(openQuizResults()),
+  toggleCardAnswered: (deckId, cardId) =>
+    dispatch(toggleCardAnswered(deckId, cardId)),
+  incrementQuestionsAnswered: () => dispatch(incrementQuestionsAnswered()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

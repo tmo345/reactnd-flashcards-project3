@@ -7,11 +7,13 @@ import {
   resetCardsInDeckToQuestion,
   closeQuizResults,
   setCurrentQuestion,
+  resetQuestionsAnswered,
 } from '../actions';
 
 class QuizResults extends Component {
   resetQuiz = () => {
     const { deck: { id }, dispatch } = this.props;
+    dispatch(resetQuestionsAnswered());
     dispatch(resetCardsToUnanswered(id));
     dispatch(resetCardsInDeckToQuestion(id));
     dispatch(closeQuizResults());
@@ -46,7 +48,7 @@ class QuizResults extends Component {
 
   backToDeck = () => {
     const { deck, navigation, dispatch } = this.props;
-    dispatch(closeQuizResults());
+    this.resetQuiz();
     const resetAction = NavigationActions.reset({
       index: 1,
       actions: [
