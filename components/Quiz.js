@@ -35,14 +35,6 @@ class Quiz extends Component {
     };
   };
 
-  state = {
-    modalOpen: false,
-  };
-
-  setModalOpen = open => {
-    this.setState({ modalOpen: open });
-  };
-
   /**
    * Based on the response of A. Goodale at https://stackoverflow.com/a/43372523
    * The technique used in the response involves calculating the current notecard every time the
