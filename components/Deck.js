@@ -16,7 +16,7 @@ class Deck extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.deckInformation}>
-          <Text style={styles.deckName}>{deck.name}</Text>
+          <Text style={styles.deckName}>{deck.title}</Text>
           <Text style={styles.numberOfCards}>{cardsInDeck.length} cards</Text>
         </View>
         <View style={styles.buttons}>
@@ -38,7 +38,7 @@ class Deck extends Component {
                 this.props.setCurrentQuestion(1);
                 this.props.navigation.navigate('Quiz', {
                   deckId: deck.id,
-                  name: deck.name,
+                  name: deck.title,
                 });
               }}
             />
