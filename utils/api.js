@@ -18,12 +18,12 @@ export const getDecks = () => {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(resultsOrBackFillData);
 };
 
-export const saveDeckTitle = (title, id) => {
+export const saveDeckTitle = (name, id) => {
   return AsyncStorage.mergeItem(
     DECK_STORAGE_KEY,
     JSON.stringify({
       [id]: {
-        title,
+        name,
         questions: [],
       },
     }),
