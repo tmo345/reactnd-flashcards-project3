@@ -46,21 +46,22 @@ export const resetCardsInDeckToQuestion = deckId => ({
   deckId,
 });
 
-export const addNewDeck = (title, id) => {
+export const addNewDeck = (name, id) => {
   return {
     type: ADD_NEW_DECK,
-    title,
+    name,
     id,
   };
 };
 
-export const setNewDeck = title => {
+export const setNewDeck = name => {
   const id = uuidv4();
   return function(dispatch) {
-    return saveDeckTitle(title, id).then(() => {
-      dispatch(addNewDeck(title, id));
+    return saveDeckTitle(name, id).then(() => {
+      dispatch(addNewDeck(name, id));
       return id;
     });
+    return id;
   };
 };
 

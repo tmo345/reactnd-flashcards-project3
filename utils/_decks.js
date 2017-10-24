@@ -4,7 +4,7 @@ export const DECK_STORAGE_KEY = 'MobileFlashCards:decks';
 
 export const dummyData = {
   deckId1: {
-    title: 'Potatoes',
+    name: 'Potatoes',
     questions: [
       {
         id: 'id1',

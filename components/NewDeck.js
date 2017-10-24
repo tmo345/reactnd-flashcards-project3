@@ -30,7 +30,6 @@ class NewDeck extends Component {
         routeName: 'Deck',
         params: { deckId: id, title: this.state.deckTitle },
       });
-
       this.setState({ deckTitle: '' });
       this.props.navigation.dispatch(navigationAction);
     });

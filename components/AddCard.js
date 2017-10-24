@@ -17,7 +17,7 @@ import FormSuccessMessage from './FormSuccessMessage';
 class AddCard extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.name,
+      title: navigation.state.params.title,
     };
   };
 
