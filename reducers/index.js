@@ -9,6 +9,8 @@ import {
   OPEN_QUIZ_RESULTS,
   CLOSE_QUIZ_RESULTS,
   HYDRATE_DECKS,
+  HYDRATE_NOTIFICATION_SETTINGS,
+  TOGGLE_NOTIFICATIONS,
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -66,11 +68,28 @@ const initialCardState = {
     //},
     //},
   ],
+const initialNotificationState = {
+  notificationsOn: false,
 };
 
 const initialQuizState = {
   currentQuestion: 1,
   quizResultsOpen: false,
+const notifications = (state = initialNotificationState, action) => {
+  switch (action.type) {
+    case HYDRATE_NOTIFICATION_SETTINGS:
+      return {
+        notificationsOn: action.asyncResults.notificationsOn,
+      };
+
+    case TOGGLE_NOTIFICATIONS:
+      return {
+        notificationsOn: action.notificationsOn,
+      };
+
+    default:
+      return state;
+  }
 };
 
 const cards = (state = {}, action) => {
@@ -229,4 +248,4 @@ const quiz = (state = initialQuizState, action) => {
   }
 };
 
-export default combineReducers({ cards, decks, quiz });
+export default combineReducers({ cards, decks, quiz, notifications });

@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
 import { DECK_STORAGE_KEY, dummyData } from './_decks';
 
+const NOTIFICATION_SETTINGS = 'mobileflashcards:notifications';
+
 const resultsOrBackFillData = results => {
   if (!results) {
     AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(dummyData));
@@ -44,4 +46,30 @@ export const addCardToDeck = (deckId, card) => {
         }),
       ),
     );
+};
+
+export const getNotificationSettings = () => {
+  return AsyncStorage.getItem(NOTIFICATION_SETTINGS).then(results => {
+    if (!results) {
+      const defaultNotificationSettings = {
+        notificationsOn: false,
+      };
+      AsyncStorage.setItem(
+        NOTIFICATION_SETTINGS,
+        JSON.stringify(defaultNotificationSettings),
+      );
+      return JSON.stringify(defaultNotificationSettings);
+    } else {
+      return results;
+    }
+  });
+};
+
+export const toggleNotificationsAsync = notificationsOn => {
+  return AsyncStorage.mergeItem(
+    NOTIFICATION_SETTINGS,
+    JSON.stringify({
+      notificationsOn,
+    }),
+  );
 };

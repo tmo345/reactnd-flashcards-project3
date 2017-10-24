@@ -11,11 +11,12 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { getDecks } from '../utils/api';
-import { fetchAllDecks } from '../actions';
+import { fetchAllDecks, fetchNotificationSettings } from '../actions';
 
 class DeckList extends Component {
   componentDidMount() {
     this.props.dispatch(fetchAllDecks());
+    this.props.dispatch(fetchNotificationSettings());
     // TODO: Remove commented out AsynStorage.clear(), which was used for testing app
     //AsyncStorage.clear();
   }

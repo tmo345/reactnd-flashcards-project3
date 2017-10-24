@@ -1,5 +1,12 @@
 import uuidv4 from 'uuid/v4';
-import { getDecks, saveDeckTitle, addCardToDeck } from '../utils/api';
+import {
+  getDecks,
+  saveDeckTitle,
+  addCardToDeck,
+  getNotificationSettings,
+  toggleNotificationsAsync,
+  setNotificationTimeAsync,
+} from '../utils/api';
 
 export const CHANGE_ANSWER_STATUS = 'CHANGE_ANSWER_STATUS';
 export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
@@ -13,6 +20,8 @@ export const OPEN_QUIZ_RESULTS = 'OPEN_QUIZ_RESULTS';
 export const CLOSE_QUIZ_RESULTS = 'CLOSE_QUIZ_RESULTS';
 export const HYDRATE_DECKS = 'HYDRATE_DECKS';
 export const FETCH_ALL_DECKS = 'FETCH_ALL_DECKS';
+export const HYDRATE_NOTIFICATION_SETTINGS = 'HYDRATE_NOTIFICATION_SETTINGS';
+export const TOGGLE_NOTIFICATIONS = 'TOGGLE_NOTIFICATIONS';
 
 export const changeAnswerStatus = (status, deckId, cardId) => ({
   type: CHANGE_ANSWER_STATUS,
@@ -98,6 +107,16 @@ export const hydrateDecks = asyncResults => ({
   asyncResults,
 });
 
+export const hydrateNotifcationSettings = asyncResults => ({
+  type: HYDRATE_NOTIFICATION_SETTINGS,
+  asyncResults,
+});
+
+export const toggleNotifications = notificationsOn => ({
+  type: TOGGLE_NOTIFICATIONS,
+  notificationsOn,
+});
+
 // Async actions
 export const fetchAllDecks = () => {
   return function(dispatch) {
@@ -106,6 +125,31 @@ export const fetchAllDecks = () => {
       .then(results => dispatch(hydrateDecks(results)))
       .catch(error =>
         console.warn('There was a problem fetching the decks: ', error),
+      );
+  };
+};
+
+export const fetchNotificationSettings = () => {
+  return function(dispatch) {
+    return getNotificationSettings()
+      .then(results => JSON.parse(results))
+      .then(results => dispatch(hydrateNotifcationSettings(results)))
+      .catch(error =>
+        console.warn(
+          'There was a problem fetching notificationsettings: ',
+          error,
+        ),
+      );
+  };
+};
+
+export const toggleNotificationsAsyncStorage = notificationsOn => {
+  return function(dispatch) {
+    toggleNotificationsAsync(notificationsOn)
+      .then(results => JSON.parse(results))
+      .then(results => dispatch(toggleNotifications(notificationsOn)))
+      .catch(error =>
+        console.warn('There was a problem toggling notifications: ', error),
       );
   };
 };

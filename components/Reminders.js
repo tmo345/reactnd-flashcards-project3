@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Button,
@@ -13,23 +14,26 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Permissions, Notifications } from 'expo';
-import { setLocalNotification } from '../utils/localNotification';
 import moment from 'moment';
 import { range } from 'ramda';
+import {
+  setNotificationTimeAsyncStorage,
+  toggleNotificationsAsyncStorage,
+} from '../actions';
 
 class Reminders extends Component {
   state = {
     notificationPermission: null,
-    notificationsOn: false,
-    opacity: new Animated.Value(0),
-    height: new Animated.Value(0),
-    hour: new Date().getHours().toString(),
-    minute: new Date().getMinutes().toString(),
-    amOrPM: new Date().getHours() <= 12 ? 'AM' : 'PM',
   };
 
   componentWillMount() {
     this.getNotificationPermission();
+  }
+
+  componentDidMount() {
+    if (this.props.notificationsOn) {
+      this.setLocalNotification();
+    }
   }
 
   getNotificationPermission = () => {
@@ -49,27 +53,13 @@ class Reminders extends Component {
     });
   };
 
-  setNotificationTime = () => {
-    const { hour, minute, amOrPM } = this.state;
-    let formattedHour = amOrPM === 'PM' ? parseInt(hour) + 12 : parseInt(hour);
-    const currentDateTime = Date.now();
-    let notificationTime = new Date();
-    notificationTime.setDate(notificationTime.getDate());
-    notificationTime.setHours(formattedHour);
-    notificationTime.setMinutes(parseInt(minute));
-    notificationTime.setSeconds(0);
-
-    if (notificationTime <= currentDateTime) {
-      notificationTime.setDate(notificationTime.getDate() + 1);
-    }
-    this.setState({ notificationTime });
-    return notificationTime;
-  };
-
   setLocalNotification = () => {
-    const notificationTime = this.setNotificationTime();
-
     Notifications.cancelAllScheduledNotificationsAsync();
+
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(2000);
+    tomorrow.setMinutes(0);
 
     const notification = {
       title: 'Have you taken a quiz today?',
@@ -86,10 +76,14 @@ class Reminders extends Component {
     };
 
     Notifications.scheduleLocalNotificationAsync(notification, {
-      time: new Date(notificationTime),
+      time: new Date(tomorrow),
       repeat: 'day',
     });
   };
+
+  clearNotifications() {
+    Notifications.cancelAllScheduledNotificationsAsync();
+  }
 
   render() {
     const { notificationPermission } = this.state;
@@ -122,119 +116,46 @@ class Reminders extends Component {
         </View>
       );
     }
-    const { opacity, height, notificationTime } = this.state;
+
     return (
       <View style={styles.container}>
-        <Text>Daily Reminder</Text>
-        <Switch
-          value={this.state.notificationsOn}
-          onValueChange={() => {
-            if (this.state.notificationsOn === false) {
-              Animated.timing(height, { toValue: 300, speed: 6 }).start();
-              Animated.timing(opacity, { toValue: 1, duration: 500 }).start();
-            } else {
-              Animated.spring(height, { toValue: 0, speed: 12 }).start();
-              Animated.timing(opacity, { toValue: 0, duration: 500 }).start();
-            }
-            this.setState({ notificationsOn: !this.state.notificationsOn });
-            //this.initialNotificatonTimeSet();
-          }}
-        />
-        <Animated.View
-          style={{
-            opacity,
-            height,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-            }}
-          >
-            <View style={{ flexDirection: 'column', flex: 1 }}>
-              <Text style={styles.timePickerHeading}>Hour</Text>
-              <Picker
-                selectedValue={this.state.hour}
-                onValueChange={value => {
-                  this.setState({ hour: value });
-                  this.setNotificationTime();
-                }}
-              >
-                {range(1, 13)
-                  .map(number => number.toString())
-                  .map(hour => (
-                    <Picker.Item key={hour} label={hour} value={hour} />
-                  ))}
-              </Picker>
-            </View>
-            <View style={{ flexDirection: 'column', flex: 1 }}>
-              <Text style={styles.timePickerHeading}>Minute</Text>
-              <Picker
-                selectedValue={this.state.minute}
-                onValueChange={value => {
-                  this.setState({ minute: value });
-                  this.setNotificationTime();
-                }}
-              >
-                {range(0, 61)
-                  .map(number => number.toString().padStart(2, '0'))
-                  .map(minute => (
-                    <Picker.Item key={minute} label={minute} value={minute} />
-                  ))}
-              </Picker>
-            </View>
-            <View style={{ flexDirection: 'column', flex: 1 }}>
-              <Text style={styles.timePickerHeading}>AM/PM</Text>
-              <Picker
-                selectedValue={this.state.amOrPM}
-                onValueChange={value => {
-                  this.setState({ amOrPM: value });
-                  this.setNotificationTime();
-                }}
-              >
-                <Picker.Item key="am" label="AM" value="AM" />
-                <Picker.Item key="pm" label="PM" value="PM" />
-              </Picker>
-            </View>
-          </View>
-          {/*<Text>
-            {notificationTime !== null
-              ? moment(notificationTime).format(
-                  'MMMM Do [Quiz reminder daily at] h:mm A',
-                )
-              : null}
-          </Text>
-          <DatePickerIOS
-            style={{ padding: 20 }}
-            mode="datetime"
-            minimumDate={moment()
-              .add(1, 'minutes')
-              .toDate()}
-            maximumDate={moment()
-              .add(1, 'days')
-              .toDate()}
-            onDateChange={date => {
-              console.log(date);
-              this.setState({ date: moment(date) });
-            }}
-            date={this.state.date.toDate()}
-          />
-          */}
-          <View style={{ flex: 1 }}>
-            <Button
-              title="Set Daily Reminder"
-              onPress={() => {
+        <View style={styles.reminderControls}>
+          <Switch
+            style={{ flex: 1 }}
+            value={this.props.notificationsOn}
+            onValueChange={e => {
+              this.props.toggleNotificationsAsyncStorage(e);
+              if (e === true) {
                 this.setLocalNotification();
-              }}
-            />
-          </View>
-        </Animated.View>
+              } else {
+                this.clearNotifications();
+              }
+            }}
+          />
+          <Text style={{ flex: 4, marginLeft: 10 }}>
+            {this.props.notificationsOn
+              ? 'Daily Practice Reminder On'
+              : 'Daily Practice Reminder Off'}
+          </Text>
+        </View>
+        <Text>
+          Turn on to receive a reminder at 8PM every day to make sure you've
+          practiced with a quiz that day.
+        </Text>
       </View>
     );
   }
 }
+const mapStateToProps = ({ notifications }) => ({
+  notificationsOn: notifications.notificationsOn,
+});
 
-export default Reminders;
+const mapDispatchToProps = dispatch => ({
+  toggleNotificationsAsyncStorage: notificationsOn =>
+    dispatch(toggleNotificationsAsyncStorage(notificationsOn)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reminders);
 
 const styles = StyleSheet.create({
   container: {
@@ -243,9 +164,10 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'flex-start',
   },
-  timePickerHeading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 14,
+  reminderControls: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
   },
 });
