@@ -17,9 +17,8 @@ import { Permissions, Notifications } from 'expo';
 import moment from 'moment';
 import { range } from 'ramda';
 import {
-  setNotificationTimeAsyncStorage,
   toggleNotificationsAsyncStorage,
-} from '../actions';
+} from '../actions/notifications';
 import {
   setReminder,
   timeFromNow,

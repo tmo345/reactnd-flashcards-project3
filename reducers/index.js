@@ -14,7 +14,8 @@ import {
   TOGGLE_NOTIFICATIONS,
   INCREMENT_QUESTIONS_ANSWERED,
   RESET_QUESTIONS_ANSWERED,
-} from '../actions';
+} from '../actions/types';
+
 import { combineReducers } from 'redux';
 
 const initialQuizState = {

@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { setNewDeck } from '../actions';
+import { setNewDeck } from '../actions/decks';
 import FormSuccessMessage from './FormSuccessMessage';
 import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';

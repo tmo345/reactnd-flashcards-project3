@@ -15,15 +15,17 @@ import Card from './Card';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import {
-  changeAnsweredCategory,
   setCurrentQuestion,
-  flipCard,
-  toggleCardAnswered,
-  incrementQuestionsAnswered,
-  resetCardsInDeckToQuestion,
   resetQuestionsAnswered,
+  incrementQuestionsAnswered,
+} from '../actions/quiz';
+import {
+  toggleCardAnswered,
+  flipCard,
+  changeAnsweredCategory,
+  resetCardsInDeckToQuestion,
   resetCardsToUnanswered,
-} from '../actions';
+} from '../actions/decks';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import QuizResults from './QuizResults';
 import QuizStats from './QuizStats';

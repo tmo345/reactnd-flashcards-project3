@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-import { setNewCard } from '../actions';
+import { setNewCard } from '../actions/decks';
 import FormSuccessMessage from './FormSuccessMessage';
 import PropTypes from 'prop-types';
 

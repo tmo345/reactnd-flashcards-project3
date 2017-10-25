@@ -12,7 +12,8 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { getDecks } from '../utils/api';
-import { fetchAllDecks, fetchNotificationSettings } from '../actions';
+import { fetchAllDecks } from '../actions/decks';
+import { fetchNotificationSettings } from '../actions/notifications';
 
 class DeckList extends Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, Button, Text, StyleSheet } from 'react-native';
 import { NavigationActions, withNavigation } from 'react-navigation';
-import { resetQuestionsAnswered } from '../actions';
+import { resetQuestionsAnswered } from '../actions/quiz';
 import PropTypes from 'prop-types';
 
 class QuizResults extends Component {
