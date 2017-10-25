@@ -22,6 +22,9 @@ import {
   openQuizResults,
   toggleCardAnswered,
   incrementQuestionsAnswered,
+  resetCardsInDeckToQuestion,
+  resetQuestionsAnswered,
+  resetCardsToUnanswered,
 } from '../actions';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import QuizResults from './QuizResults';
@@ -46,6 +49,17 @@ class Quiz extends Component {
       this.navigateToQuizResults();
     }
   }
+  componentDidMount() {
+    this.resetQuiz();
+  }
+
+  resetQuiz = () => {
+    const { deck } = this.props;
+    this.props.setCurrentQuestion(1);
+    this.props.resetCardsToUnanswered(deck.id);
+    this.props.resetCardsInDeckToQuestion(deck.id);
+    this.props.resetQuestionsAnswered();
+  };
 
   /**
    * Based on the response of A. Goodale at https://stackoverflow.com/a/43372523
@@ -243,6 +257,10 @@ const mapDispatchToProps = dispatch => ({
   toggleCardAnswered: (deckId, cardId) =>
     dispatch(toggleCardAnswered(deckId, cardId)),
   incrementQuestionsAnswered: () => dispatch(incrementQuestionsAnswered()),
+  resetCardsInDeckToQuestion: deckId =>
+    dispatch(resetCardsInDeckToQuestion(deckId)),
+  resetQuestionsAnswered: () => dispatch(resetQuestionsAnswered()),
+  resetCardsToUnanswered: deckId => dispatch(resetCardsToUnanswered(deckId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

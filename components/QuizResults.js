@@ -19,16 +19,6 @@ class QuizResults extends Component {
     };
   };
 
-  resetQuiz = () => {
-    const { dispatch } = this.props;
-    const { deck: { id } } = this.props.navigation.state.params;
-    dispatch(resetQuestionsAnswered());
-    dispatch(resetCardsToUnanswered(id));
-    dispatch(resetCardsInDeckToQuestion(id));
-    dispatch(closeQuizResults());
-    dispatch(setCurrentQuestion(1));
-  };
-
   navigateToNewQuiz = () => {
     const { navigation } = this.props;
     const { deck: { id, name } } = navigation.state.params;
@@ -52,14 +42,12 @@ class QuizResults extends Component {
   };
 
   retakeQuiz = () => {
-    this.resetQuiz();
     this.navigateToNewQuiz();
   };
 
   backToDeck = () => {
     const { navigation } = this.props;
     const { deck } = navigation.state.params;
-    this.resetQuiz();
     const resetAction = NavigationActions.reset({
       index: 1,
       actions: [

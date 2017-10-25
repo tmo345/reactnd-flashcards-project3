@@ -34,8 +34,6 @@ class Deck extends Component {
             <Button
               title="Start Quiz"
               onPress={() => {
-                this.props.resetCardsInDeckToQuestion(deck.id);
-                this.props.setCurrentQuestion(1);
                 this.props.navigation.navigate('Quiz', {
                   deckId: deck.id,
                   name: deck.name,
