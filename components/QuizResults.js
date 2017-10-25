@@ -75,7 +75,6 @@ class QuizResults extends Component {
   };
 
   render() {
-    console.log(this.props);
     const {
       cardsInDeck,
       numberCorrect,

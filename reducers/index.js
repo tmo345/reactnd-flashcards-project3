@@ -213,7 +213,6 @@ const quiz = (state = initialQuizState, action) => {
       };
 
     case INCREMENT_QUESTIONS_ANSWERED:
-      console.log('incrementing now');
       return {
         ...state,
         answered: state.answered + 1,

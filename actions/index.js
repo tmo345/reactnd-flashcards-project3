@@ -27,7 +27,6 @@ export const RESET_QUESTIONS_ANSWERED = 'RESET_QUESTIONS_ANSWERED';
 export const TOGGLE_CARD_ANSWERED = 'TOGGLE_CARD_ANSWERED';
 
 export const incrementQuestionsAnswered = () => {
-  console.log('sending increment action');
   return {
     type: INCREMENT_QUESTIONS_ANSWERED,
   };
