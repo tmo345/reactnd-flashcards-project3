@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, TouchableOpacity, Button, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import { resetQuestionsAnswered } from '../actions/quiz';
 import PropTypes from 'prop-types';
 
 class QuizResults extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params;
+  static navigationOptions = () => {
     return {
       headerLeft: null,
       title: 'Results',
@@ -79,7 +78,6 @@ class QuizResults extends Component {
       cardsInDeck,
       numberCorrect,
       deck,
-      dispatch,
     } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>

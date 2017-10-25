@@ -6,15 +6,11 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  TouchableOpacity,
   Button,
   KeyboardAvoidingView,
-  Alert,
-  ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { setNewDeck } from '../actions/decks';
-import FormSuccessMessage from './FormSuccessMessage';
 import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 
@@ -45,7 +41,7 @@ class NewDeck extends Component {
   onDeckTitleBlur = () => this.setState({ deckTitleFocused: false });
 
   render() {
-    const { deckTitle, displayFormSuccessMessage } = this.state;
+    const { deckTitle } = this.state;
     return (
       /**
        * For how to hide keyboard on touching outside of TextInput, answers had examples

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, Button } from 'react-native';
-import AddCard from './AddCard';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -15,8 +14,6 @@ class Deck extends Component {
     deck: PropTypes.object.isRequired,
     cardsInDeck: PropTypes.array.isRequired,
     navigation: PropTypes.object.isRequired,
-    resetCardsInDeckToQuestion: PropTypes.func.isRequired,
-    setCurrentQuestion: PropTypes.func.isRequired,
   };
 
   render() {
@@ -64,13 +61,7 @@ const mapStateToProps = ({ decks, cards }, { navigation }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  resetCardsInDeckToQuestion: deckId =>
-    dispatch(resetCardsInDeckToQuestion(deckId)),
-  setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Deck);
+export default connect(mapStateToProps)(Deck);
 
 const styles = StyleSheet.create({
   container: {
@@ -79,15 +70,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#fff',
     padding: 40,
-    //paddingBottom: 80,
-    //paddingTop: 90,
   },
   deckInformation: {
     alignItems: 'flex-start',
     marginBottom: 80,
   },
   buttons: {
-    //flex: 1,
     marginTop: 20,
   },
   buttonContainer: {

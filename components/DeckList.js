@@ -5,13 +5,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform,
   TouchableOpacity,
   FlatList,
-  ScrollView,
-  AsyncStorage,
 } from 'react-native';
-import { getDecks } from '../utils/api';
 import { fetchAllDecks } from '../actions/decks';
 import { fetchNotificationSettings } from '../actions/notifications';
 
@@ -32,7 +28,6 @@ class DeckList extends Component {
 
   render() {
     const { decks, cards } = this.props;
-    const deckIds = Object.keys(decks);
 
     return (
       <View style={{ flex: 1 }}>

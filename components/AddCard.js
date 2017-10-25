@@ -8,7 +8,6 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
-  TouchableOpacity,
   Button,
 } from 'react-native';
 import { setNewCard } from '../actions/decks';

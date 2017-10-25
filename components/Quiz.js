@@ -1,16 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Button,
-  FlatList,
-  Modal,
-  TouchableHighlight,
-} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Card from './Card';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -26,8 +15,6 @@ import {
   resetCardsInDeckToQuestion,
   resetCardsToUnanswered,
 } from '../actions/decks';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import QuizResults from './QuizResults';
 import QuizStats from './QuizStats';
 import CardList from './CardList';
 import FlipCardButton from './FlipCardButton';
@@ -147,7 +134,6 @@ class Quiz extends Component {
       cardsInDeck,
       currentQuestion,
       currentCard,
-      navigation,
       questionsAnswered,
     } = this.props;
 

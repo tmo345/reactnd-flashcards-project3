@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  AsyncStorage,
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  Platform,
-  Alert,
-} from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
@@ -21,7 +13,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
-import devToolsEnhancer from 'remote-redux-devtools';
 import Reminders from './components/Reminders';
 import { ScreenOrientation } from 'expo';
 

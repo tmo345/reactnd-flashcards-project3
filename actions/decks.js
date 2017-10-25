@@ -7,7 +7,7 @@ import {
   RESET_CARDS_IN_DECK_TO_QUESTION,
   HYDRATE_DECKS,
   TOGGLE_CARD_ANSWERED,
-  ADD_NEW_DECK
+  ADD_NEW_DECK,
 } from './types';
 import { addCardToDeck, saveDeckTitle, getDecks } from '../utils/api';
 
@@ -34,7 +34,6 @@ export const resetCardsInDeckToQuestion = deckId => ({
   type: RESET_CARDS_IN_DECK_TO_QUESTION,
   deckId,
 });
-
 
 export const addNewCard = (deckId, card) => {
   return {
@@ -87,11 +86,14 @@ export const setNewCard = (deckId, question, answer) => {
 export const setNewDeck = name => {
   const id = uuidv4();
   return function(dispatch) {
-    return saveDeckTitle(name, id).then(() => {
-      dispatch(addNewDeck(name, id));
-      return id;
-    }).catch(error => console.warn('There was a problem setting the new deck title', error));
-    return id;
+    return saveDeckTitle(name, id)
+      .then(() => {
+        dispatch(addNewDeck(name, id));
+        return id;
+      })
+      .catch(error =>
+        console.warn('There was a problem setting the new deck title', error),
+      );
   };
 };
 

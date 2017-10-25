@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
-import { Foundation, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 
 class Card extends Component {
@@ -19,7 +11,6 @@ class Card extends Component {
     currentQuestion: PropTypes.number.isRequired,
     deckId: PropTypes.string.isRequired,
     deckLength: PropTypes.number.isRequired,
-    setCurrentQuestion: PropTypes.func.isRequired,
   };
 
   renderAnswerStatusIcon = answeredCategory => {
@@ -41,7 +32,6 @@ class Card extends Component {
           <Text style={{ paddingTop: 5 }}>{message}</Text>
         </View>
       );
-      return;
     }
     return (
       <View style={styles.markAnswerStatus}>
@@ -58,10 +48,7 @@ class Card extends Component {
       answer,
       onQuestionSide,
       answeredCategory,
-      deckId,
-      id,
     } = this.props.card;
-    const currentQuestion = this.props;
     const { width } = Dimensions.get('window');
     return (
       <View style={[styles.container, { width }]}>
@@ -89,16 +76,13 @@ class Card extends Component {
   }
 }
 
-const mapStateToProps = ({ quiz, cards }, { deckId }) => {
+const mapStateToProps = ({ quiz }) => {
   return {
     currentQuestion: quiz.currentQuestion,
   };
 };
-const mapDispatchToProps = dispatch => ({
-  setCurrentQuestion: position => dispatch(setCurrentQuestion(position)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps)(Card);
 
 const styles = StyleSheet.create({
   container: {

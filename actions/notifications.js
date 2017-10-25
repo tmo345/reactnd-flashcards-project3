@@ -1,8 +1,8 @@
+import { HYDRATE_NOTIFICATION_SETTINGS, TOGGLE_NOTIFICATIONS } from './types';
 import {
-  HYDRATE_NOTIFICATION_SETTINGS,
-  TOGGLE_NOTIFICATIONS
-} from './types'
-import { getNotificationSettings, toggleNotificationsAsync } from '../utils/api'
+  getNotificationSettings,
+  toggleNotificationsAsync,
+} from '../utils/api';
 
 export const hydrateNotifcationSettings = asyncResults => ({
   type: HYDRATE_NOTIFICATION_SETTINGS,
@@ -34,7 +34,7 @@ export const toggleNotificationsAsyncStorage = notificationsOn => {
   return function(dispatch) {
     toggleNotificationsAsync(notificationsOn)
       .then(results => JSON.parse(results))
-      .then(results => dispatch(toggleNotifications(notificationsOn)))
+      .then(() => dispatch(toggleNotifications(notificationsOn)))
       .catch(error =>
         console.warn('There was a problem toggling notifications: ', error),
       );

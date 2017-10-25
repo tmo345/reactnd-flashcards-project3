@@ -2,23 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  Button,
   Text,
   ActivityIndicator,
   StyleSheet,
-  DatePickerIOS,
   Switch,
-  Animated,
-  ScrollView,
-  Picker,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Permissions, Notifications } from 'expo';
-import moment from 'moment';
-import { range } from 'ramda';
-import {
-  toggleNotificationsAsyncStorage,
-} from '../actions/notifications';
+import { toggleNotificationsAsyncStorage } from '../actions/notifications';
 import {
   setReminder,
   timeFromNow,
@@ -98,8 +89,8 @@ class Reminders extends Component {
             style={{ marginBottom: 20 }}
           />
           <Text style={{ marginBottom: 5 }}>
-            You need to enable notifications in your device's settings for this
-            feature to work.
+            You need to enable notifications in your settings for this feature
+            to work.
           </Text>
         </View>
       );
@@ -127,7 +118,7 @@ class Reminders extends Component {
           </Text>
         </View>
         <Text>
-          Turn on to receive a reminder at 8PM every day if you haven't
+          Turn on to receive a reminder at 8PM every day if you have not
           completed a quiz that day.
         </Text>
       </View>
