@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, Button, Text, StyleSheet } from 'react-native';
 import { NavigationActions, withNavigation } from 'react-navigation';
-import {
-  resetCardsToUnanswered,
-  resetCardsInDeckToQuestion,
-  closeQuizResults,
-  setCurrentQuestion,
-  resetQuestionsAnswered,
-} from '../actions';
+import { resetQuestionsAnswered } from '../actions';
 
 class QuizResults extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -48,6 +42,17 @@ class QuizResults extends Component {
   backToDeck = () => {
     const { navigation } = this.props;
     const { deck } = navigation.state.params;
+
+    /**
+     * Resetting questionsAnswered to 0 is necessary to avoid a bug where the app would navigate
+     * back to QuizResults after arriving at the Deck view. It appears to be an issue where the Quiz
+     * view's componentDidUpdate is being called as the app navigates back through the navigation
+     * stack. In that call, questionsAnswered is compared to the deck length. If the values are
+     * equal, the app navigates to the QuizResults view. By setting the questionsAnswered to 0, this
+     * comparison returns false and the app does not navigate back to QuizResults on arrival to Deck.
+     */
+    this.props.dispatch(resetQuestionsAnswered(deck.id));
+
     const resetAction = NavigationActions.reset({
       index: 1,
       actions: [
