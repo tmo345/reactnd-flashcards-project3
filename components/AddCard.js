@@ -13,12 +13,18 @@ import {
 } from 'react-native';
 import { setNewCard } from '../actions';
 import FormSuccessMessage from './FormSuccessMessage';
+import PropTypes from 'prop-types';
 
 class AddCard extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.title,
     };
+  };
+
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   state = {

@@ -16,8 +16,14 @@ import { connect } from 'react-redux';
 import { setNewDeck } from '../actions';
 import FormSuccessMessage from './FormSuccessMessage';
 import { NavigationActions } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 class NewDeck extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
   state = {
     deckTitle: '',
     displayFormSuccessMessage: false,

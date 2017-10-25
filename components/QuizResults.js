@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, TouchableOpacity, Button, Text, StyleSheet } from 'react-native';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import { resetQuestionsAnswered } from '../actions';
+import PropTypes from 'prop-types';
 
 class QuizResults extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -11,6 +12,11 @@ class QuizResults extends Component {
       headerLeft: null,
       title: 'Results',
     };
+  };
+
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   navigateToNewQuiz = () => {

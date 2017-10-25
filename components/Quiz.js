@@ -13,13 +13,11 @@ import {
 } from 'react-native';
 import Card from './Card';
 import { NavigationActions } from 'react-navigation';
-import QuizCardDrawer from './QuizCardDrawer';
 import { connect } from 'react-redux';
 import {
   changeAnsweredCategory,
   setCurrentQuestion,
   flipCard,
-  openQuizResults,
   toggleCardAnswered,
   incrementQuestionsAnswered,
   resetCardsInDeckToQuestion,
@@ -33,12 +31,32 @@ import {
   timeFromNow,
   DEFAULT_QUIZ_REMINDER,
 } from '../utils/helpers';
+import PropTypes from 'prop-types';
 
 class Quiz extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.name,
     };
+  };
+
+  static propTypes = {
+    cardsInDeck: PropTypes.array.isRequired,
+    changeAnsweredCategory: PropTypes.func.isRequired,
+    currentCard: PropTypes.object.isRequired,
+    currentQuestion: PropTypes.number.isRequired,
+    deck: PropTypes.object.isRequired,
+    flipCard: PropTypes.func.isRequired,
+    incrementQuestionsAnswered: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
+    notificationsOn: PropTypes.bool.isRequired,
+    questionsAnswered: PropTypes.number.isRequired,
+    quizResultsOpen: PropTypes.bool.isRequired,
+    resetCardsInDeckToQuestion: PropTypes.func.isRequired,
+    resetCardsToUnanswered: PropTypes.func.isRequired,
+    resetQuestionsAnswered: PropTypes.func.isRequired,
+    setCurrentQuestion: PropTypes.func.isRequired,
+    toggleCardAnswered: PropTypes.func.isRequired,
   };
 
   componentDidUpdate() {
@@ -239,7 +257,6 @@ const mapDispatchToProps = dispatch => ({
   flipCard: (deckId, cardId) => dispatch(flipCard(deckId, cardId)),
   changeAnsweredCategory: (status, deckId, cardId) =>
     dispatch(changeAnsweredCategory(status, deckId, cardId)),
-  openQuizResults: () => dispatch(openQuizResults()),
   toggleCardAnswered: (deckId, cardId) =>
     dispatch(toggleCardAnswered(deckId, cardId)),
   incrementQuestionsAnswered: () => dispatch(incrementQuestionsAnswered()),

@@ -11,6 +11,15 @@ class Deck extends Component {
       title: navigation.state.params.title,
     };
   };
+
+  static propTypes = {
+    deck: PropTypes.object.isRequired,
+    cardsInDeck: PropTypes.array.isRequired,
+    navigation: PropTypes.object.isRequired,
+    resetCardsInDeckToQuestion: PropTypes.func.isRequired,
+    setCurrentQuestion: PropTypes.func.isRequired,
+  };
+
   render() {
     const { deck, cardsInDeck } = this.props;
     return (
@@ -47,12 +56,6 @@ class Deck extends Component {
     );
   }
 }
-
-Deck.propTypes = {
-  deck: PropTypes.object.isRequired,
-  cardsInDeck: PropTypes.array.isRequired,
-  navigation: PropTypes.object.isRequired,
-};
 
 const mapStateToProps = ({ decks, cards }, { navigation }) => {
   const { deckId } = navigation.state.params;

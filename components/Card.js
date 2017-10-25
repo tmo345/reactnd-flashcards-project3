@@ -10,8 +10,18 @@ import {
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Foundation, Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 class Card extends Component {
+  static propTypes = {
+    card: PropTypes.object.isRequired,
+    cardNumber: PropTypes.number.isRequired,
+    currentQuestion: PropTypes.number.isRequired,
+    deckId: PropTypes.string.isRequired,
+    deckLength: PropTypes.number.isRequired,
+    setCurrentQuestion: PropTypes.func.isRequired,
+  };
+
   renderAnswerStatusIcon = answeredCategory => {
     let iconName;
     let color;

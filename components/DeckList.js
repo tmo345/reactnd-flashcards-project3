@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -14,12 +15,20 @@ import { getDecks } from '../utils/api';
 import { fetchAllDecks, fetchNotificationSettings } from '../actions';
 
 class DeckList extends Component {
+  static propTypes = {
+    cards: PropTypes.object.isRequired,
+    decks: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
+  };
+
   componentDidMount() {
     this.props.dispatch(fetchAllDecks());
     this.props.dispatch(fetchNotificationSettings());
     // TODO: Remove commented out AsynStorage.clear(), which was used for testing app
     //AsyncStorage.clear();
   }
+
   render() {
     const { decks, cards } = this.props;
     const deckIds = Object.keys(decks);

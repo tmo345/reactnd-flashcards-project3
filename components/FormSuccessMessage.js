@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 const FormSuccessMessage = props => {
   const { submittedItem, dismissFormSuccessMessage } = props;
@@ -24,6 +25,11 @@ const FormSuccessMessage = props => {
       </Text>
     </TouchableOpacity>
   );
+};
+
+FormSuccessMessage.propTypes = {
+  dismissFormSuccessMessage: PropTypes.func.isRequired,
+  submittedItem: PropTypes.string.isRequired,
 };
 
 export default FormSuccessMessage;

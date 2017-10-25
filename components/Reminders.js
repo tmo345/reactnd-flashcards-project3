@@ -25,10 +25,17 @@ import {
   timeFromNow,
   DEFAULT_QUIZ_REMINDER,
 } from '../utils/helpers';
+import PropTypes from 'prop-types';
 
 class Reminders extends Component {
   state = {
     notificationPermission: null,
+  };
+
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    notificationsOn: PropTypes.bool.isRequired,
+    toggleNotificationsAsyncStorage: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
