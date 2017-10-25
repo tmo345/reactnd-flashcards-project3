@@ -27,6 +27,7 @@ import {
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import QuizResults from './QuizResults';
 import QuizStats from './QuizStats';
+import CardList from './CardList';
 import {
   setReminder,
   timeFromNow,
@@ -156,10 +157,10 @@ class Quiz extends Component {
           currentQuestion={currentQuestion}
           deckLength={deckLength}
         />
-        <FlatList
-          data={cardsInDeck}
-          keyExtractor={item => item.id}
-          renderItem={({ item, index }) => (
+        <CardList
+          cardsInDeck={cardsInDeck}
+          onScrollEnd={this.onScrollEnd}
+          renderListItem={({ item, index }) => (
             <Card
               deckLength={cardsInDeck.length}
               deckId={deck.id}
@@ -167,12 +168,6 @@ class Quiz extends Component {
               cardNumber={index + 1}
             />
           )}
-          ref={ref => {
-            this.flatListRef = ref;
-          }}
-          horizontal={true}
-          pagingEnabled={true}
-          onMomentumScrollEnd={this.onScrollEnd}
         />
         <TouchableOpacity
           style={styles.flipButton}
