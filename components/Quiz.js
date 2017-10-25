@@ -28,6 +28,7 @@ import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import QuizResults from './QuizResults';
 import QuizStats from './QuizStats';
 import CardList from './CardList';
+import FlipCardButton from './FlipCardButton';
 import {
   setReminder,
   timeFromNow,
@@ -169,15 +170,11 @@ class Quiz extends Component {
             />
           )}
         />
-        <TouchableOpacity
-          style={styles.flipButton}
-          onPress={() => {
-            this.props.flipCard(deck.id, currentCard.id);
-          }}
-        >
-          <MaterialCommunityIcons name="rotate-3d" size={30} />
-          <Text style={styles.flipButtonText}>Flip</Text>
-        </TouchableOpacity>
+        <FlipCardButton
+          flipCard={this.props.flipCard}
+          deckId={deck.id}
+          cardId={currentCard.id}
+        />
         <View style={styles.markAnswerStatus}>
           <TouchableOpacity
             style={[
@@ -259,16 +256,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  flipButton: {
-    flex: 0.25,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  flipButtonText: {
-    fontSize: 22,
-    marginLeft: 7.5,
   },
   markAnswerStatus: {
     flexDirection: 'row',
