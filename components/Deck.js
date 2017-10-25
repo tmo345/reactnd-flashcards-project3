@@ -33,6 +33,7 @@ class Deck extends Component {
           <View style={styles.buttonContainer}>
             <Button
               title="Start Quiz"
+              disabled={cardsInDeck.length === 0}
               onPress={() => {
                 this.props.navigation.navigate('Quiz', {
                   deckId: deck.id,
