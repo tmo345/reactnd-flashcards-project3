@@ -172,20 +172,6 @@ class Quiz extends Component {
           pagingEnabled={true}
           onMomentumScrollEnd={this.onScrollEnd}
         />
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.props.quizResultsOpen}
-          onRequestClose={() => {}}
-        >
-          <QuizResults
-            cardsInDeck={cardsInDeck}
-            numberCorrect={
-              cardsInDeck.filter(card => card.answerStatus === 'correct').length
-            }
-            deck={deck}
-          />
-        </Modal>
         <TouchableOpacity
           style={styles.flipButton}
           onPress={() => {
