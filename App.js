@@ -110,7 +110,7 @@ const StackNav = StackNavigator({
     navigationOptions: {
       headerTintColor: '#fff',
       headerStyle: {
-        backgroundColor: 'gray',
+        backgroundColor: '#3D5363',
         height: 50,
         justifyContent: 'center',
         paddingBottom: 15,
@@ -123,7 +123,7 @@ const StackNav = StackNavigator({
     navigationOptions: {
       headerTintColor: '#fff',
       headerStyle: {
-        backgroundColor: 'gray',
+        backgroundColor: '#3D5363',
         height: 50,
         paddingBottom: 15,
       },
@@ -135,7 +135,7 @@ const StackNav = StackNavigator({
       headerTintColor: '#fff',
       headerBackTitle: 'Quiz',
       headerStyle: {
-        backgroundColor: 'gray',
+        backgroundColor: '#3D5363',
         height: 50,
         paddingBottom: 15,
       },
@@ -147,7 +147,7 @@ const StackNav = StackNavigator({
     navigationOptions: {
       headerTintColor: '#fff',
       headerStyle: {
-        backgroundColor: 'gray',
+        backgroundColor: '#3D5363',
         height: 50,
         paddingBottom: 15,
       },
