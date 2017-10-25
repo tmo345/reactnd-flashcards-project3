@@ -29,19 +29,22 @@ class Card extends Component {
       let message = 'Unanswered';
       return (
         <View style={styles.markAnswerStatus}>
-          <Text style={{ paddingTop: 5 }}>{message}</Text>
+          <Text style={{ paddingTop: 5, fontSize: 16 }}>{message}</Text>
         </View>
       );
     }
     return (
       <View style={styles.markAnswerStatus}>
         <Ionicons name={iconName} color={color} size={35} />
-        <Text style={{ color, marginLeft: 5, paddingBottom: 2.5 }}>
+        <Text
+          style={{ color, marginLeft: 5, paddingBottom: 2.5, fontSize: 16 }}
+        >
           {message}
         </Text>
       </View>
     );
   };
+
   render() {
     const {
       question,
@@ -64,7 +67,7 @@ class Card extends Component {
           >
             <View>{this.renderAnswerStatusIcon(answeredCategory)}</View>
           </View>
-          <Text style={{ paddingLeft: 20 }}>
+          <Text style={{ paddingLeft: 20, fontSize: 16 }}>
             {onQuestionSide ? 'Question: ' : 'Answer'}
           </Text>
           <Text style={styles.cardText}>
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cardText: {
-    fontSize: 18,
+    fontSize: 20,
     padding: 20,
   },
   currentNumber: {

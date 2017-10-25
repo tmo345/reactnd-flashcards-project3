@@ -4,6 +4,7 @@ import Deck from '../components/Deck';
 import AddCard from '../components/AddCard';
 import Quiz from '../components/Quiz';
 import QuizResults from '../components/QuizResults';
+import { HEADER_HEIGHT } from '../utils/helpers';
 
 const StackNav = StackNavigator({
   Decks: {
@@ -18,7 +19,7 @@ const StackNav = StackNavigator({
       headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#3D5363',
-        height: 50,
+        height: HEADER_HEIGHT,
         justifyContent: 'center',
         paddingBottom: 15,
       },
@@ -31,7 +32,7 @@ const StackNav = StackNavigator({
       headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#3D5363',
-        height: 50,
+        height: HEADER_HEIGHT,
         paddingBottom: 15,
       },
     },
@@ -43,7 +44,7 @@ const StackNav = StackNavigator({
       headerBackTitle: 'Quiz',
       headerStyle: {
         backgroundColor: '#3D5363',
-        height: 50,
+        height: HEADER_HEIGHT,
         paddingBottom: 15,
       },
       gesturesEnabled: false,
@@ -55,7 +56,7 @@ const StackNav = StackNavigator({
       headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#3D5363',
-        height: 50,
+        height: HEADER_HEIGHT,
         paddingBottom: 15,
       },
       gesturesEnabled: false,

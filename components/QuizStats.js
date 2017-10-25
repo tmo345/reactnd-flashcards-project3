@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
   quizInfo: {
     color: '#fff',
     padding: 5,
+    fontSize: 16,
   },
 });

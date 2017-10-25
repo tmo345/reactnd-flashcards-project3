@@ -1,5 +1,7 @@
 import { Notifications } from 'expo';
 
+export const HEADER_HEIGHT = 60;
+
 export const DEFAULT_QUIZ_REMINDER = {
   title: 'Have you taken a quiz today?',
   body: 'Practice some more by taking another quiz!',

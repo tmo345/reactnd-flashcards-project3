@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   formText: {
     fontSize: 18,
     paddingBottom: 20,
+    
   },
   inputContainer: {
     flex: 1,

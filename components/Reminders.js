@@ -111,13 +111,13 @@ class Reminders extends Component {
               }
             }}
           />
-          <Text style={{ flex: 4, marginLeft: 10 }}>
+          <Text style={{ flex: 4, marginLeft: 10, fontSize: 18 }}>
             {this.props.notificationsOn
               ? 'Daily Practice Reminder On'
               : 'Daily Practice Reminder Off'}
           </Text>
         </View>
-        <Text>
+        <Text style={{ fontSize: 18 }}>
           Turn on to receive a reminder at 8PM every day if you have not
           completed a quiz that day.
         </Text>

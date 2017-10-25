@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import DeckList from '../components/DeckList';
 import NewDeck from '../components/NewDeck';
 import Reminders from '../components/Reminders';
+import { HEADER_HEIGHT } from '../utils/helpers';
 
 const Tabs = TabNavigator(
   {
@@ -45,10 +46,10 @@ const Tabs = TabNavigator(
       header: (
         <View
           style={{
-            height: 50,
+            height: HEADER_HEIGHT,
             justifyContent: 'center',
             alignItems: 'flex-start',
-            backgroundColor: '#2A7F40',
+            backgroundColor: '#3D5363',
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, paddingLeft: 20 }}>
@@ -60,8 +61,8 @@ const Tabs = TabNavigator(
     tabBarOptions: {
       activeTintColor: '#fff',
       inactiveTintColor: '#222',
-      activeBackgroundColor: '#2A7F40',
-      inactiveBackgroundColor: '#ddd',
+      activeBackgroundColor: '#3D5363',
+      inactiveBackgroundColor: '#f8f7f7',
       labelStyle: {
         fontSize: 14,
       },

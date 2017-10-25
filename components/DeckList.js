@@ -48,8 +48,10 @@ class DeckList extends Component {
                     });
                   }}
                 >
-                  <Text>{name}</Text>
-                  <Text>{cards[id].length} cards</Text>
+                  <Text style={styles.deckName}>{name}</Text>
+                  <Text style={styles.cardNumber}>
+                    {cards[id].length} cards
+                  </Text>
                 </TouchableOpacity>
               </View>
             );
@@ -77,7 +79,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 40,
     justifyContent: 'center',
-    borderColor: '#222',
-    borderWidth: StyleSheet.hairlineWidth,
+    marginBottom: 20,
+    borderColor: '#ccc',
+    borderWidth: 2,
+    borderRadius: 3,
+  },
+  deckName: {
+    fontSize: 22,
+    paddingBottom: 10,
+  },
+  cardNumber: {
+    fontSize: 16,
   },
 });
