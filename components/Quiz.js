@@ -24,7 +24,6 @@ import {
   incrementQuestionsAnswered,
 } from '../actions';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import HeaderRightStatus from './HeaderRightStatus';
 import QuizResults from './QuizResults';
 import {
   setReminder,
@@ -36,9 +35,6 @@ class Quiz extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.name,
-      headerRight: (
-        <HeaderRightStatus deckId={navigation.state.params.deckId} />
-      ),
     };
   };
 
@@ -108,11 +104,20 @@ class Quiz extends Component {
   };
 
   render() {
-    const { deck, cardsInDeck, currentQuestion, currentCard } = this.props;
+    const {
+      deck,
+      cardsInDeck,
+      currentQuestion,
+      currentCard,
+      navigation,
+      questionsAnswered,
+    } = this.props;
 
+    const deckLength = cardsInDeck.length;
+    const questionsRemaining = deckLength - questionsAnswered;
     return (
       <View style={styles.container}>
-        <TouchableHighlight
+        <View
           style={{
             backgroundColor: '#3D5363',
             paddingTop: 7.5,
@@ -125,14 +130,16 @@ class Quiz extends Component {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: 'space-between',
             }}
           >
-            <Ionicons name="ios-list" color="#fff" size={30} />
-            <Text style={{ marginLeft: 10, color: '#fff' }}>Card List</Text>
+            <Text style={styles.quizInfo}>Answered: {questionsAnswered}</Text>
+            <Text style={styles.quizInfo}>
+              Card {currentQuestion}/{deckLength}
+            </Text>
+            <Text style={styles.quizInfo}>Remaining: {questionsRemaining}</Text>
           </View>
-        </TouchableHighlight>
+        </View>
         <FlatList
           data={cardsInDeck}
           keyExtractor={item => item.id}
@@ -277,5 +284,9 @@ const styles = StyleSheet.create({
   },
   markAnswerText: {
     color: 'white',
+  },
+  quizInfo: {
+    color: '#fff',
+    padding: 5,
   },
 });
