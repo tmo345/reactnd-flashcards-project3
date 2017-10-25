@@ -29,6 +29,7 @@ import QuizResults from './QuizResults';
 import QuizStats from './QuizStats';
 import CardList from './CardList';
 import FlipCardButton from './FlipCardButton';
+import MarkQuestionButtons from './MarkQuestionButtons';
 import {
   setReminder,
   timeFromNow,
@@ -175,38 +176,10 @@ class Quiz extends Component {
           deckId={deck.id}
           cardId={currentCard.id}
         />
-        <View style={styles.markAnswerStatus}>
-          <TouchableOpacity
-            style={[
-              styles.markAnswerStatusButtons,
-              { backgroundColor: '#2E882E' },
-            ]}
-            onPress={() => {
-              this.markQuestionCorrectness('correct');
-              this.handleAnswerTracking();
-            }}
-          >
-            <Ionicons
-              name="ios-checkmark-circle-outline"
-              color="white"
-              size={30}
-            />
-            <Text style={styles.markAnswerText}>Mark Correct</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.markAnswerStatusButtons,
-              { backgroundColor: '#AA3939' },
-            ]}
-            onPress={() => {
-              this.markQuestionCorrectness('incorrect');
-              this.handleAnswerTracking();
-            }}
-          >
-            <Ionicons name="ios-close-circle-outline" color="white" size={30} />
-            <Text style={styles.markAnswerText}>Mark Incorrect</Text>
-          </TouchableOpacity>
-        </View>
+        <MarkQuestionButtons
+          markQuestionCorrectness={this.markQuestionCorrectness}
+          handleAnswerTracking={this.handleAnswerTracking}
+        />
       </View>
     );
   }
@@ -248,28 +221,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
-  },
-  nav: {
-    flex: 1,
-  },
-  flipButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  markAnswerStatus: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  markAnswerStatusButtons: {
-    flexGrow: 1,
-    paddingBottom: 15,
-    paddingTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  markAnswerText: {
-    color: 'white',
   },
 });
