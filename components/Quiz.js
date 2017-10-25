@@ -26,6 +26,7 @@ import {
 } from '../actions';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import QuizResults from './QuizResults';
+import QuizStats from './QuizStats';
 import {
   setReminder,
   timeFromNow,
@@ -149,29 +150,12 @@ class Quiz extends Component {
     const questionsRemaining = deckLength - questionsAnswered;
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            backgroundColor: '#3D5363',
-            paddingTop: 7.5,
-            paddingBottom: 7.5,
-          }}
-          onPress={() => {
-            this.props.openQuizResults();
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text style={styles.quizInfo}>Answered: {questionsAnswered}</Text>
-            <Text style={styles.quizInfo}>
-              Card {currentQuestion}/{deckLength}
-            </Text>
-            <Text style={styles.quizInfo}>Remaining: {questionsRemaining}</Text>
-          </View>
-        </View>
+        <QuizStats
+          questionsAnswered={questionsAnswered}
+          questionsRemaining={questionsRemaining}
+          currentQuestion={currentQuestion}
+          deckLength={deckLength}
+        />
         <FlatList
           data={cardsInDeck}
           keyExtractor={item => item.id}
@@ -305,9 +289,5 @@ const styles = StyleSheet.create({
   },
   markAnswerText: {
     color: 'white',
-  },
-  quizInfo: {
-    color: '#fff',
-    padding: 5,
   },
 });
