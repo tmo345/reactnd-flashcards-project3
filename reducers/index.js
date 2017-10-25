@@ -177,7 +177,6 @@ const decks = (state = {}, action) => {
     }
 
     case HYDRATE_DECKS: {
-      console.log('async', action);
       const deckIds = Object.keys(action.asyncResults);
       return deckIds.reduce((deckState, deckId) => {
         deckState[deckId] = {

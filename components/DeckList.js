@@ -31,14 +31,12 @@ class DeckList extends Component {
           data={Object.values(decks)}
           keyExtractor={item => item.id}
           renderItem={({ item }) => {
-            console.log(item);
             const { name, id } = item;
             return (
               <View>
                 <TouchableOpacity
                   style={styles.deck}
                   onPress={() => {
-                    console.log('decklist', id, name);
                     this.props.navigation.navigate('Deck', {
                       deckId: id,
                       name,
