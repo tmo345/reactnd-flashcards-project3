@@ -1,6 +1,10 @@
 # Mobile Flashcards
 ## Final project for React Native course - Udacity React Nanodegree
 
+![Main View](./assets/screenshots/DeckList250.png)
+![Main View](./assets/screenshots/Quiz250.png)
+![Main View](./assets/screenshots/AddCard250.png)
+
 ### Project Description
 Mobile flashcards app built for iOS using [React Native](https://facebook.github.io/react-native/), [create-react-native-app](https://github.com/react-community/create-react-native-app), and
 [Expo](https://expo.io/).
