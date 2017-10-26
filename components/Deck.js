@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {
+  resetCardsToUnanswered,
+  resetCardsInDeckToQuestion,
+} from '../actions/decks';
+import { setCurrentQuestion, resetQuestionsAnswered } from '../actions/quiz';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -14,6 +19,18 @@ class Deck extends Component {
     deck: PropTypes.object.isRequired,
     cardsInDeck: PropTypes.array.isRequired,
     navigation: PropTypes.object.isRequired,
+  };
+
+  componentDidMount() {
+    this.resetQuiz();
+  }
+
+  resetQuiz = () => {
+    const { deck } = this.props;
+    this.props.setCurrentQuestion(1);
+    this.props.resetCardsToUnanswered(deck.id);
+    this.props.resetCardsInDeckToQuestion(deck.id);
+    this.props.resetQuestionsAnswered();
   };
 
   render() {
@@ -61,7 +78,12 @@ const mapStateToProps = ({ decks, cards }, { navigation }) => {
   };
 };
 
-export default connect(mapStateToProps)(Deck);
+export default connect(mapStateToProps, {
+  setCurrentQuestion,
+  resetCardsToUnanswered,
+  resetCardsInDeckToQuestion,
+  resetQuestionsAnswered,
+})(Deck);
 
 const styles = StyleSheet.create({
   container: {

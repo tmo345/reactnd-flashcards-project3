@@ -60,17 +60,6 @@ class Quiz extends Component {
       this.navigateToQuizResults();
     }
   }
-  componentDidMount() {
-    this.resetQuiz();
-  }
-
-  resetQuiz = () => {
-    const { deck } = this.props;
-    this.props.setCurrentQuestion(1);
-    this.props.resetCardsToUnanswered(deck.id);
-    this.props.resetCardsInDeckToQuestion(deck.id);
-    this.props.resetQuestionsAnswered();
-  };
 
   /**
    * Based on the response of A. Goodale at https://stackoverflow.com/a/43372523
