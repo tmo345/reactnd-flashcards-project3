@@ -52,8 +52,14 @@ const Tabs = TabNavigator(
             backgroundColor: '#3D5363',
           }}
         >
-          <Text style={{ color: '#fff', fontSize: 18, paddingLeft: 20 }}>
-            Flashcards Project
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 18,
+              paddingLeft: 20,
+            }}
+          >
+            Mobile Flashcards Project
           </Text>
         </View>
       ),
