@@ -13,6 +13,7 @@ import {
 import { setNewCard } from '../actions/decks';
 import FormSuccessMessage from './FormSuccessMessage';
 import PropTypes from 'prop-types';
+import { NavigationActions } from 'react-navigation';
 
 class AddCard extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -24,12 +25,12 @@ class AddCard extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+    deck: PropTypes.object.isRequired,
   };
 
   state = {
     question: '',
     answer: '',
-    displayFormSuccessMessage: false,
     questionFocused: false,
     answerFocused: false,
   };
@@ -37,13 +38,17 @@ class AddCard extends Component {
   submitAddCard = () => {
     const { deckId } = this.props.navigation.state.params;
     const { question, answer } = this.state;
+    const { deck } = this.props;
     this.props.dispatch(setNewCard(deckId, question, answer)).then(() => {
+      const navigationAction = NavigationActions.navigate({
+        routeName: 'Deck',
+        params: { deckId: deckId, title: deck.name },
+      });
       this.setState({
         question: '',
         answer: '',
-        displayFormSuccessMessage: true,
       });
-      Keyboard.dismiss();
+      this.props.navigation.dispatch(navigationAction);
     });
   };
 
@@ -128,7 +133,11 @@ class AddCard extends Component {
   }
 }
 
-export default connect()(AddCard);
+const mapStateToProps = ({ decks }, { navigation }) => ({
+  deck: decks[navigation.state.params.deckId],
+});
+
+export default connect(mapStateToProps)(AddCard);
 const styles = StyleSheet.create({
   textInput: {
     alignSelf: 'stretch',
