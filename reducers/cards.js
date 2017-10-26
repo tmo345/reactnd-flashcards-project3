@@ -71,15 +71,24 @@ const cards = (state = {}, action) => {
         id,
         question,
         answer,
-        answerStatus,
+        answeredCategory,
         onQuestionSide,
+        answered,
       } = action.card;
       const { deckId } = action;
       return {
         ...state,
         [deckId]: [
           ...state[deckId],
-          { id, deckId, question, answer, answerStatus, onQuestionSide },
+          {
+            id,
+            deckId,
+            question,
+            answer,
+            answeredCategory,
+            answered,
+            onQuestionSide,
+          },
         ],
       };
     }
