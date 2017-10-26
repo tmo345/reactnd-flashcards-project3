@@ -100,7 +100,6 @@ class AddCard extends Component {
               onChangeText={this.onQuestionChange}
               onFocus={this.onQuestionFocus}
               onBlur={this.onQuestionBlur}
-              //multiline={true}
               style={[
                 styles.textInput,
                 this.state.questionFocused && styles.focusedStyle,
@@ -112,7 +111,6 @@ class AddCard extends Component {
               onChangeText={this.onAnswerChange}
               onFocus={this.onAnswerFocus}
               onBlur={this.onAnswerBlur}
-              //multiline={true}
               style={[
                 styles.textInput,
                 this.state.answerFocused && styles.focusedStyle,
