@@ -90,7 +90,7 @@ class QuizResults extends Component {
           <Text style={styles.resultsHeading}>Score:</Text>
           <Text style={styles.resultsText}>
             {numberCorrect} correct / {cardsInDeck.length} card{cardsInDeck.length === 1 ? '' : 's'}{' '}
-            total = {numberCorrect / cardsInDeck.length * 100}%
+            total = {(numberCorrect / cardsInDeck.length * 100).toFixed(2)}%
           </Text>
         </View>
         <View style={{ alignItems: 'flex-start', marginTop: 20 }}>
